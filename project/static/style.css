@@ -1,0 +1,90 @@
+/* Reset some default browser styles */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Add background color and font settings */
+body {
+  background-color: #434040;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #bdbdbd;
+  line-height: 1.6;
+  margin: 20px;
+  margin-top: 20px;
+}
+
+/* Container Setup */
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+/* Header Styles */
+header {
+  background: #50b3a2;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 1rem;
+}
+
+header h1 {
+  margin: 0;
+  padding: 0.5rem;
+  font-size: 2rem;
+}
+
+/* Search Bar Styles */
+#address-input {
+  display: block;
+  margin-bottom: 20px;
+  width: 20%;
+}
+
+#metric-dropdown {
+  margin-bottom: 20px;
+}
+
+/* Get Weather Button */
+#submit-button {
+  display: block;
+  margin-bottom: 30px;
+}
+
+/* Button Styles */
+button {
+  background: #50b3a2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Input Fields */
+input[type="text"], input[type="radio"] {
+  padding: 8px;
+  margin: 10px 1px;
+  border: 1px solid #ccc;
+}
+
+.rounded-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.roundedCorner {
+  width: 250px;
+  height: 125px;
+  border: solid 1px #555;
+  background-image: url('data/images/clear.jpg');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 5px 5px 5px rgba(50, 50, 50, 0.6);
+  -moz-box-shadow: 10px 5px 5px rgba(0,0,0,0.6);
+  -webkit-box-shadow: 10px 5px 5px rgba(0,0,0,0.6);
+  -o-box-shadow: 10px 5px 5px rgba(0,0,0,0.6);
+  border-radius: 25px;
+  }

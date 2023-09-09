@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="{% static 'data\icons\tabicon.ico' %}" type="image/x-icon">
+  <title>Weather</title>
+  <link id="stylesheet-link" rel="stylesheet" type="text/css" href="{% static 'resultsstyle.css' %}">
+</head>
+<body id="results-page">
+  <form>
+    {% csrf_token %}
+  </form>
+  <div>
+    <h1 id="location"></h1>
+    <h1 id="current-date"></h1>
+  </div>
+  <div class="container"> <!-- New container div -->
+    <div class="rounded-container">
+      <div class="roundedCorner" id="roundedCorner">
+        <p id="current-temp"></p>
+        <p id="highest-temp"></p>
+        <p id="lowest-temp"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="forecast-container">
+    {% for day in forecast_days %}
+      <div class="forecast-item">
+        <div class="day-date">{{ day.date }}</div>
+        <div class="high">H: {{ day.max_temp }}</div>
+        <div class="low">L: {{ day.min_temp }}</div>
+        <div class="desc">{{ day.weather_description }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <table border="1"> <!-- You can add borders for visualization, but it's optional -->
+    <tr>
+        <td>  24 Hour Forecast  </td>
+        <td>   7 Day Forecast  </td>
+    </tr>
+    <tr>
+        <td><div id="hourly-forecast"></div></td>
+        <td id="yourTableCellID"><div id="forecastdays"></div></td> <!-- Added id to the td -->
+    </tr>
+  </table>
+<script>
+  var link = document.querySelector("#stylesheet-link");
+  link.href = link.href + '?v=2';
+</script>
+<script src="{% static 'script.js' %}"></script>
+</body>
+</html>

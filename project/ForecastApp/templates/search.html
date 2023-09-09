@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" href="{% static 'data\icons\tabicon.ico' %}" type="image/x-icon">
+  <title>Weather Search</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/grapesjs/0.16.34/css/grapes.min.css">
+  <link id="stylesheet-link" rel="stylesheet" type="text/css" href="{% static 'searchstyle.css' %}">
+</head>
+<body id="search-page">
+  <div class="default" id="background">
+    <div id="soon"></div>
+      <div class="cloud" style="top: -671px; left: -406px;"></div>
+      <div class="cloud" style="top: -732px; left: -233px;"></div>
+      <div class="cloud" style="top: -771px; left: -53px;"></div>
+      <div class="cloud" style="top: -715px; left: 14px;"></div>
+      <div class="cloud" style="top: -661px; left: 300px;"></div>
+      <div class="cloud" style="top: -747px; left: 427px;"></div>
+      <div class="cloud" style="top: -750px; left: 650px;"></div>
+      <div class="cloud" style="top: -700px; left: 800px;"></div>
+      <div class="cloud" style="top: -650px; left: 950px;"></div>
+      <div class="cloud" style="top: -680px; left: 1100px;"></div>
+      <div class="cloud" style="top: -730px; left: 1250px;"></div>
+  </div>
+  <div id="search-container">
+    <form id="search-form" action="{% url 'results' %}" method="post">
+      {% csrf_token %}
+      <button id="locate" title="Locate Me">
+        <img src="{% static 'data/images/locateme.png' %}" alt="location" width="20" height="20">
+      </button>
+      <button id="metric-button" type="button" title="Metric">°C</button>
+      <input id="metric-hidden" type="hidden" name="metric" value="C">
+      <button id="submit-button" type="submit" title="Continue"><img src="{% static 'data/images/submit.png' %}"></button>
+    </form>
+  </div>
+  <div id="address-div">
+    <input id="address-input" type="text" autocomplete="off" placeholder="Search..." name="Address">
+  </div>
+  <div id="credits">
+    <p>© Copyright 2023 | Tarek Chaalan | <a href="https://github.com/tarekchaalan" target="_blank">Github</a> | Powered by <a href="https://openweathermap.org/" target="_blank">OpenWeather</a> and <a href="https://www.google.com/maps" target="_blank">GoogleMaps</a></p>
+  </div>
+  <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

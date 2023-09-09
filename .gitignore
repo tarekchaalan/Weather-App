@@ -1,0 +1,12 @@
+# Python virtual environment
+env/
+
+# Cache directories and files
+__pycache__/
+
+# Django specific
+*.sqlite3
+db.sqlite3.py
+
+# Environment variables
+.env

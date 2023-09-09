@@ -1,0 +1,113 @@
+/* Reset some default browser styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+  }
+
+/* Add background color and font settings */
+body{
+    background-color: #434040;
+    background-image: url('data/images/sunny.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;  /* The background image will not scroll with the page */
+    background-position: calc(100% + 30px) calc(0% - 0px);
+    font-family: Arial, Helvetica, sans-serif;
+    color: #bdbdbd;
+    line-height: 1.6;
+    margin: 20px;
+  }
+
+  .container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row; /* Change to row direction */
+  }
+
+  /* Header Styles */
+  header {
+    background: #50b3a2;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  header h1 {
+    margin: 0;
+    padding: 0.5rem;
+    font-size: 2rem;
+  }
+
+.flex-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.rounded-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    left: 10%;
+  }
+
+.roundedCorner {
+    width: 500px;
+    height: 250px;
+    border: solid 1px #555;
+    background-image: url('data/images/sunny.jpg');
+    background-size: cover;
+    background-position: 500px 0px; /* Adjust these values to position the image */
+    box-shadow: 5px 10px 10px rgba(50, 50, 50, 0.6);
+    -moz-box-shadow: 10px 5px 5px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 10px 5px 5px rgba(0,0,0,0.6);
+    -o-box-shadow: 10px 5px 5px rgba(0,0,0,0.6);
+    border-radius: 25px;
+    position: relative; /* Change to relative positioning */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#current-temp {
+    color: black;
+    font-size: xx-large;
+    font-weight: 30;
+    font-family: Marker Felt, fantasy;
+    position: absolute;
+    top: 2px;
+    left: 10px;
+}
+
+#highest-temp {
+    color:black;
+    font-size: large;
+    font-weight: bold;
+    position: absolute;
+    bottom: 30px;
+    left: 180px;
+    justify-content: left;
+}
+
+#lowest-temp {
+    color:rgb(0, 0, 0);
+    font-size: large;
+    font-weight: bold;
+    position: absolute;
+    bottom: 5px;
+    left: 180px;
+    justify-content: left;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: center;
+}

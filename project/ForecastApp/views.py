@@ -23,6 +23,7 @@ GOOGLE_MAPS_API_KEY = settings.GOOGLE_MAPS_API_KEY
 
 class WeatherView(View):
     def post(self, request):
+        print(request.body)
         data = json.loads(request.body.decode('utf-8'))
         address_input = data.get("address", "")
         metric_input = data.get("metric", "C")
@@ -30,12 +31,13 @@ class WeatherView(View):
         try:
             response = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?address={address_input}&key={GOOGLE_MAPS_API_KEY}")
             if response.status_code != 200:
-                return JsonResponse({"error": "Invalid address"}, status=400)
+                return JsonResponse({"error": "Couldn't get address"}, status=400)
             location_data = response.json()
             latitude = location_data['results'][0]['geometry']['location']['lat']
             longitude = location_data['results'][0]['geometry']['location']['lng']
+            print(f"Converted address {address_input} to latitude: {latitude}, longitude: {longitude}")
         except:
-            return JsonResponse({"error": "Invalid address"}, status=400)
+            return JsonResponse({"error": "Couldn't Convert to Lat/Long"}, status=400)
         try:
             response = requests.get(f"http://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longitude}&appid={OPENWEATHER_API_KEY}")
             parsed_json = response.json()

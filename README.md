@@ -38,7 +38,7 @@ pip install -r requirements.txt
 - *Windows:*
 ```
 python -m venv env
-source env\Scripts\activate
+env\Scripts\activate
 pip install -r requirements.txt
 ```
 

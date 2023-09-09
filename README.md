@@ -19,7 +19,7 @@ Before you begin, ensure you have met the following requirements:
 
 ## Getting Started
 
-To get started with WeatherApp, follow these steps:
+To get started with *WeatherApp*, follow these steps:
 
 1. Clone this repository:
 
@@ -59,7 +59,7 @@ python manage.py runserver
 ```
 
 ## Usage
-Enter a location address in the search bar and click the "Search" button.
+Enter a location address in the search bar and click the "Search" button.<br>
 Weather information for the specified location will be displayed on the next page.
 
 ## Usage

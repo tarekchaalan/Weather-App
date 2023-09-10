@@ -1,8 +1,7 @@
-body{
+body {
   font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
 }
-
 
 #background {
   z-index: -1;
@@ -13,7 +12,7 @@ body{
   left: 0;
   right: 0;
   bottom: 0;
-  transition: background .7s;
+  transition: background 0.7s;
   background: linear-gradient(120deg, #fff097, #5eb0d1 55%);
 }
 
@@ -24,7 +23,7 @@ body{
   border-radius: 50%;
   top: 15%;
   left: 10%;
-  transition: background-color .7s, box-shadow .7s;
+  transition: background-color 0.7s, box-shadow 0.7s;
 }
 
 #temp span {
@@ -34,26 +33,83 @@ body{
   opacity: 0;
 }
 
-#background.default > #soon, #background.day > #soon {
+#background.default > #soon,
+#background.day > #soon {
   background-color: #feffdf;
-  box-shadow: 0 0 5px 35px rgba(254, 255, 223, 0.2), 0 0 10px 70px rgba(254, 255, 223, 0.2), 0 0 20px 105px rgba(254, 255, 223, 0.2);
+  box-shadow: 0 0 5px 35px rgba(254, 255, 223, 0.2),
+    0 0 10px 70px rgba(254, 255, 223, 0.2),
+    0 0 20px 105px rgba(254, 255, 223, 0.2);
 }
 
-#background > .cloud {
+#background > .cloud1,
+.cloud2,
+.cloud3 .cloud4,
+.cloud5,
+.cloud6,
+.cloud7,
+.cloud8,
+.cloud9,
+.cloud10,
+.cloud11 {
   z-index: 999;
   width: 1000px;
   height: 920px;
   position: absolute;
   background-color: #fff;
-  opacity: .45;
-  transition: opacity .5s;
+  opacity: 0.45;
+  transition: opacity 0.5s;
   border-radius: 50%;
   animation: cloud 10s infinite alternate;
 }
 
+#background > .cloud1 {
+  top: -671px;
+  left: -406px;
+}
+#background > .cloud2 {
+  top: -732px;
+  left: -233px;
+}
+#background > .cloud3 {
+  top: -771px;
+  left: -53px;
+}
+#background > .cloud4 {
+  top: -715px;
+  left: 14px;
+}
+#background > .cloud5 {
+  top: -661px;
+  left: 300px;
+}
+#background > .cloud6 {
+  top: -747px;
+  left: 427px;
+}
+#background > .cloud7 {
+  top: -750px;
+  left: 650px;
+}
+#background > .cloud8 {
+  top: -700px;
+  left: 800px;
+}
+#background > .cloud9 {
+  top: -650px;
+  left: 950px;
+}
+#background > .cloud10 {
+  top: -680px;
+  left: 1100px;
+}
+#background > .cloud11 {
+  top: -730px;
+  left: 1250px;
+}
+
 @keyframes cloud {
   100% {
-      transform: translate(-50px) scale(1.05);
+    transform: translate(-50px) scale(1.05);
   }
 }
 
@@ -83,7 +139,7 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;  /* New */
+  display: flex; /* New */
   align-items: center;
 }
 
@@ -94,13 +150,12 @@ body{
   margin: 0 0 0 15px;
   flex: 2;
   font-size: 25px;
-  width: 470px;
+  width: 465px;
   min-width: 100px;
   border: none;
   outline: none;
   background: transparent;
   margin-left: 10px;
-  /*transform: translateX(-170px);*/
   color: white;
   opacity: 0.75;
 }
@@ -121,8 +176,29 @@ body{
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-55%, -50%);
+  transform: translate(-56%, -50%);
 }
+
+#noaddress {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  position: fixed;
+  top: 490px;
+  left: 670px;
+  color: white;
+  font-size: 23px;
+}
+
+#invalidaddress {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  position: fixed;
+  top: 490px;
+  left: 670px;
+  color: white;
+  font-size: 23px;
+}
+
 
 #locate {
   position: relative;
@@ -149,7 +225,7 @@ body{
   transition: 0.3s ease-in-out;
   font-size: 23px;
   margin-top: 3.5px;
-  left: 235px;
+  left: 227px;
 }
 
 #metric-button:hover {
@@ -160,12 +236,10 @@ body{
 #submit-button {
   position: fixed;
   background: none;
-  left: 275px;
-  top: 5px;
-}
-
-#submit-button img:hover {
-  transform: scale(1.3);
+  left: 295px;
+  top: 14px;
+  padding: 0;
+  border: none;
   cursor: pointer;
 }
 
@@ -173,6 +247,11 @@ body{
   transition: 0.3s ease-in-out;
   width: 20px;
   height: 20px;
+}
+
+#submit-button img:hover {
+  transform: scale(1.3);
+  cursor: pointer;
 }
 
 i.fas.fa-arrow-right {
@@ -185,13 +264,13 @@ i.fas.fa-arrow-right {
   bottom: -13px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;  /* You can adjust this */
-  text-align: center;  /* Aligns the text to the center */
-  margin: 10px 0;  /* Top and bottom margin */
+  width: 100%; /* You can adjust this */
+  text-align: center; /* Aligns the text to the center */
+  margin: 10px 0; /* Top and bottom margin */
   color: white;
   font-size: 12px;
   opacity: 0.8;
-  white-space: nowrap;  /* Prevents the text from wrapping */
+  white-space: nowrap; /* Prevents the text from wrapping */
 }
 
 #credits a {

@@ -1,0 +1,220 @@
+/* Reset some default browser styles */
+body,
+h1,
+h2,
+h3,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Add background color and font settings */
+body {
+  background-color: #2c74a4;
+  background-image: url("data/images/sunny.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* The background image will not scroll with the page */
+  background-position: calc(100% + 30px) calc(0% - 0px);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #bdbdbd;
+  line-height: 1.6;
+  margin: 0px;
+}
+
+/* Header Styles */
+header {
+  background: #50b3a2;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 1rem;
+}
+
+header h1 {
+  margin: 0;
+  padding: 0.5rem;
+  font-size: 2rem;
+}
+
+.rounded-container1,
+.rounded-container2,
+.rounded-container3 {
+  border: solid 1px #555;
+  background-image: url("data/images/sunny.jpg");
+  background-size: cover;
+  background-position: calc(100% + 20px);
+  box-shadow: 7px -10px 10px rgba(50, 50, 50, 0.8);
+  border-radius: 15px;
+  color: white;
+  margin-top: 150px;
+  margin-left: 5%;
+  float: left;
+  width: 80%; /* Subtracting margin from each side */
+  height: 250px;
+  box-sizing: border-box;
+  padding: 20px;
+  position: relative;
+}
+
+.container1,
+.container2,
+.container3 {
+  width: 33.33%;
+  float: left;
+  padding: 0 10px; /* This will ensure the containers don't stick to each other */
+  box-sizing: border-box;
+}
+
+/* Clearing floats for the next elements */
+.container3::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style for Text inside Rounded Containers */
+.rounded-container1 p,
+.rounded-container2 p,
+.rounded-container3 p {
+  margin: 0;
+  color: white;
+}
+
+/* Ensure the container does not extend beyond the window's width */
+.container1,
+.container2,
+.container3 {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Responsive Design to ensure the layout looks good on smaller screens */
+@media screen and (max-width: 768px) {
+  .container1,
+  .container2,
+  .container3 {
+    width: 100%;
+    float: none;
+    margin-bottom: 20px;
+  }
+
+  .rounded-container1,
+  .rounded-container2,
+  .rounded-container3 {
+    margin-top: 20px;
+  }
+}
+
+table {
+  border-radius: 25px;
+  overflow: hidden; /* Hide any child element that goes outside the border */
+  position: relative; /* Position the table relative to its parent */
+  left: 10%;
+  width: 80%; /* Table takes up full width of its parent */
+  border-collapse: collapse; /* Remove space between table cells */
+  background-color: rgb(80, 80, 80);
+  margin-top: 20px; /* Some margin from top for clarity */
+  justify-content: center;
+}
+
+table td {
+  width: 50%; /* Each cell takes up half the table */
+  color: white; /* White text in the cells */
+  padding: 10px; /* Padding inside the cells for content */
+  justify-content: center;
+}
+
+table tr:first-child td {
+  /* Selects the first row's cells */
+  font-size: 1.5em; /* Bigger font size */
+  background-color: #6f6f6f;
+  vertical-align: top;
+}
+
+table td:first-child {
+  /* Selects the first column cells */
+  border-right: 1px solid white; /* Border down the middle */
+}
+
+table td:last-child {
+  border-left: none; /* Make sure the last cell doesn't have a border */
+}
+
+td {
+  text-align: center; /* Horizontally center the text */
+  vertical-align: middle; /* Vertically center the text */
+  padding: 10px; /* Provide some space around the content */
+}
+
+/* If you have specific styles in mind for the empty divs, you can modify these */
+.firstheader,
+.secondheader {
+  display: inline-block; /* So that they appear inline with the text */
+  width: 20px; /* Or any desired width */
+  height: 20px; /* Or any desired height */
+  margin-right: 10px; /* Some space between the div and the text */
+}
+
+/* Hourly forecast styles */
+.hourly-item,
+.forecast-item {
+  display: flex; /* Use Flexbox for the layout */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Distribute the space between the items */
+  margin-bottom: 10px; /* Add some margin to separate the items */
+}
+
+.hourly-header-item,
+.weekly-header-item,
+.hour-time,
+.hour-temp,
+.hour-description {
+  flex: 1; /* Ensure that each item takes up equal space */
+  text-align: center; /* Center the text within each item */
+  padding: 5px; /* Add some padding for a better look */
+  border: none; /* A border to differentiate items */
+}
+
+/* Hourly forecast values styles */
+.hourly-item,
+.forecast-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+/* This will display the headers side by side */
+.hourly-header,
+.weekly-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px; /* Add some space between the headers and the forecast content */
+}
+
+/* Common styles for header items */
+.hourly-header-item,
+.weekly-header-item {
+  flex: 1;
+  text-align: center;
+  padding: 5px;
+  border: none;
+  font-weight: bold;
+  background-color: #666;
+  margin: 0 5px; /* Some space between each header item for better appearance */
+}
+
+.hour-time,
+.hour-temp,
+.hour-description,
+.day-date,
+.high,
+.low,
+.desc {
+  flex: 1;
+  text-align: center;
+  padding: 5px;
+  margin: 0 5px; /* Some space between each item for better appearance */
+}

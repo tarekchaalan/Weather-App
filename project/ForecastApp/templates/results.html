@@ -1,55 +1,117 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="icon" href="{% static 'data\icons\tabicon.ico' %}" type="image/x-icon">
-  <title>Weather</title>
-  <link id="stylesheet-link" rel="stylesheet" type="text/css" href="{% static 'resultsstyle.css' %}">
-</head>
-<body id="results-page">
-  <form>
-    {% csrf_token %}
-  </form>
-  <div>
-    <h1 id="location"></h1>
-    <h1 id="current-date"></h1>
-  </div>
-  <div class="container"> <!-- New container div -->
-    <div class="rounded-container">
-      <div class="roundedCorner" id="roundedCorner">
-        <p id="current-temp"></p>
-        <p id="highest-temp"></p>
-        <p id="lowest-temp"></p>
+  <head>
+    <link
+      rel="icon"
+      href="{% static 'data\icons\tabicon.ico' %}"
+      type="image/x-icon"
+    />
+    <title>Weather</title>
+    <link
+      id="stylesheet-link"
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'results.css' %}"
+    />
+  </head>
+  <body id="results-page">
+    <form>{% csrf_token %}</form>
+    <div>
+      <h1 id="location"></h1>
+      <h1 id="current-date"></h1>
+    </div>
+    <div class="container1">
+      <div class="rounded-container1">
+        <div class="Temperatures" id="Temperatures">
+          <p id="current-temp">{{ weather_data.current_temp }}</p>
+          <p id="highest-temp">{{ weather_data.highest_temp }}</p>
+          <p id="lowest-temp">{{ weather_data.lowest_temp }}</p>
+          <p id="weather_description">{{ weather_data.weather_description }}</p>
+          <p id="current-temp">Test Data</p>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div id="forecast-container">
-    {% for day in forecast_days %}
-      <div class="forecast-item">
-        <div class="day-date">{{ day.date }}</div>
-        <div class="high">H: {{ day.max_temp }}</div>
-        <div class="low">L: {{ day.min_temp }}</div>
-        <div class="desc">{{ day.weather_description }}</div>
+    <div class="container2">
+      <div class="rounded-container2">
+        <div class="Info" id="Info">
+          <p id="humidity"></p>
+          <p id="wind-speed"></p>
+        </div>
       </div>
-    {% endfor %}
-  </div>
+    </div>
+    <div class="container3">
+      <div class="rounded-container3">
+        <div class="SunCycle" id="SunCycle">
+          <p id="sunrise"></p>
+          <p id="sunset"></p>
+        </div>
+      </div>
+    </div>
 
-  <table border="1"> <!-- You can add borders for visualization, but it's optional -->
-    <tr>
-        <td>  24 Hour Forecast  </td>
-        <td>   7 Day Forecast  </td>
-    </tr>
-    <tr>
-        <td><div id="hourly-forecast"></div></td>
-        <td id="yourTableCellID"><div id="forecastdays"></div></td> <!-- Added id to the td -->
-    </tr>
-  </table>
-<script>
-  var link = document.querySelector("#stylesheet-link");
-  link.href = link.href + '?v=2';
-</script>
-<script src="{% static 'common.js' %}"></script>
-<script src="{% static 'results.js' %}"></script>
-</body>
+    <table border="0">
+      <tr>
+        <td>
+          <div class="firstheader"></div>
+          24 Hour Forecast
+        </td>
+        <td>
+          <div class="secondheader"></div>
+          7 Day Forecast
+        </td>
+      </tr>
+      ...
+      <tr>
+        <td>
+          <!-- Hourly Forecast Headers -->
+          <div class="hourly-header">
+            <div class="hourly-header-item">Time</div>
+            <div class="hourly-header-item">Temperature</div>
+            <div class="hourly-header-item">Description</div>
+          </div>
+
+          <!-- Hourly Forecast Content -->
+          <div id="hourly-forecast">
+            {% for hour in hourly_forecast %}
+            <div class="hourly-item">
+              <div class="hour-time">{{ hour.time }}</div>
+              <div class="hour-temp">{{ hour.temperature }}</div>
+              <div class="hour-description">
+                {{ hour.weather_description_h }}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </td>
+
+        <td>
+          <!-- Weekly Forecast Headers -->
+          <div class="weekly-header">
+            <div class="weekly-header-item">Date</div>
+            <div class="weekly-header-item">High</div>
+            <div class="weekly-header-item">Low</div>
+            <div class="weekly-header-item">Description</div>
+          </div>
+
+          <!-- Weekly Forecast Content -->
+          <div id="forecastdays">
+            {% for day in forecast_days %}
+            <div class="forecast-item">
+              <div class="day-date">{{ day.date }}</div>
+              <div class="high">{{ day.max_temp }}</div>
+              <div class="low">{{ day.min_temp }}</div>
+              <div class="desc">{{ day.weather_description_d }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </td>
+      </tr>
+    </table>
+    <script>
+      var link = document.querySelector("#stylesheet-link");
+      link.href = link.href + "?v=2";
+    </script>
+    <script src="{% static 'common.js' %}"></script>
+    <script src="{% static 'results.js' %}"></script>
+  </body>
 </html>

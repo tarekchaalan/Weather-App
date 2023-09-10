@@ -27,3 +27,5 @@ ignore/
 
 # Ignore log files
 *.log
+
+project/ForecastApp/migrations/

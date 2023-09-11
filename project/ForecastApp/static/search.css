@@ -179,26 +179,16 @@ body {
   transform: translate(-56%, -50%);
 }
 
-#noaddress {
+#noaddress, #invalidaddress {
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  position: fixed;
-  top: 490px;
-  left: 670px;
+  transition: opacity 0.2s ease-in-out;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-56%, -50%);
   color: white;
   font-size: 23px;
 }
-
-#invalidaddress {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  position: fixed;
-  top: 490px;
-  left: 670px;
-  color: white;
-  font-size: 23px;
-}
-
 
 #locate {
   position: relative;

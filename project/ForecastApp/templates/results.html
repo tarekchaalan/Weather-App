@@ -16,35 +16,60 @@
     />
   </head>
   <body id="results-page">
+    <div class="default" id="background">
+      <div class="cloud1"></div>
+      <div class="cloud2"></div>
+      <div class="cloud3"></div>
+      <div class="cloud4"></div>
+      <div class="cloud5"></div>
+      <div class="cloud6"></div>
+      <div class="cloud7"></div>
+      <div class="cloud8"></div>
+      <div class="cloud9"></div>
+      <div class="cloud10"></div>
+      <div class="cloud11"></div>
+    </div>
     <form>{% csrf_token %}</form>
     <div>
-      <h1 id="location"></h1>
-      <h1 id="current-date"></h1>
+      <h1 id="location">Weather in {{ city }}</h1>
+      <h1 id="current-date">{{ weather_data.current_date }}</h1>
     </div>
     <div class="container1">
       <div class="rounded-container1">
         <div class="Temperatures" id="Temperatures">
           <p id="current-temp">{{ weather_data.current_temp }}</p>
-          <p id="highest-temp">{{ weather_data.highest_temp }}</p>
-          <p id="lowest-temp">{{ weather_data.lowest_temp }}</p>
+          <p id="highest-temp">H: {{ weather_data.highest_temp }}</p>
+          <p id="lowest-temp">L: {{ weather_data.lowest_temp }}</p>
           <p id="weather_description">{{ weather_data.weather_description }}</p>
-          <p id="current-temp">Test Data</p>
         </div>
       </div>
     </div>
     <div class="container2">
       <div class="rounded-container2">
         <div class="Info" id="Info">
-          <p id="humidity"></p>
-          <p id="wind-speed"></p>
+          <p id="title1">Info</p>
+          <p id="humidity">Humidity: {{ weather_data.humidity }}</p>
+          <p id="feels-like">Feels Like: {{ weather_data.feels_like }}</p>
+          <p id="wind-speed">Wind Speed: {{ weather_data.wind_speed }}</p>
         </div>
       </div>
     </div>
     <div class="container3">
       <div class="rounded-container3">
         <div class="SunCycle" id="SunCycle">
-          <p id="sunrise"></p>
-          <p id="sunset"></p>
+          <p id="title2">Sun Cycle</p>
+          <p id="sunrise">{{ weather_data.sunrise }}</p>
+          <p id="sunset">{{ weather_data.sunset }}</p>
+          <img
+            id="rise"
+            src="{% static 'data/images/sunrise.png' %}"
+            alt="sunrise"
+          />
+          <img
+            id="set"
+            src="{% static 'data/images/sunset.png' %}"
+            alt="sunset"
+          />
         </div>
       </div>
     </div>

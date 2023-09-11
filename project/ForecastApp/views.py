@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.conf import settings
 from django.http import JsonResponse
 from django.views import View
 import requests
@@ -13,13 +12,6 @@ load_dotenv()
 
 def index(request):
     return render(request, 'search.html')
-
-def results(request):
-    # Access data stored in session
-    data = request.session.get('weather_data', {})
-    print("DEBUGDATA: Weather Data from Session:", data)
-    return render(request, 'results.html', {'forecast_days': data.get('forecast_days', []),
-                                           'hourly_forecast': data.get('hourly_forecast', [])})
 
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
@@ -41,6 +33,14 @@ class WeatherView(View):
             print("DEBUG4:", location_data)
             latitude = location_data['results'][0]['geometry']['location']['lat']
             longitude = location_data['results'][0]['geometry']['location']['lng']
+            city_name = None
+            for component in location_data['results'][0]['address_components']:
+                if "locality" in component['types']:
+                    city_name = component['long_name']
+                    break
+            if city_name is None:
+                city_name = address_input
+            request.session['city_name'] = city_name
             print(f"DEBUG5: Converted address {address_input} to latitude: {latitude}, longitude: {longitude}")
         except Exception as e:
             print(f"DEBUG6: Exception occurred - {e}")
@@ -67,6 +67,7 @@ class WeatherView(View):
         lowest_temp = min([convert_temp(hour['temp'], metric_input) for hour in hourly_data])
 
         weather_description = parsed_json['current']['weather'][0]['description']
+        feels_like = convert_temp(parsed_json['current']['feels_like'], metric_input)
         humidity = parsed_json['current']['humidity']
         wind_speed = parsed_json['current']['wind_speed']
         sunrise_ts = parsed_json['current']['sunrise']
@@ -75,12 +76,12 @@ class WeatherView(View):
         # Get the local timezone
         local_tz = timezone(parsed_json['timezone'])
         local_dt = datetime.now(local_tz)
-        current_date_str = local_dt.strftime('%Y-%m-%d')
+        current_date_str = local_dt.strftime('%A, %B %d')
         current_local_time = local_dt.hour
 
         # Convert sunrise and sunset to local time
-        sunrise_local = datetime.fromtimestamp(sunrise_ts).astimezone(local_tz).strftime('%H:%M:%S')
-        sunset_local = datetime.fromtimestamp(sunset_ts).astimezone(local_tz).strftime('%H:%M:%S')
+        sunrise_local = datetime.fromtimestamp(sunrise_ts).astimezone(local_tz).strftime('%I:%M %p')
+        sunset_local = datetime.fromtimestamp(sunset_ts).astimezone(local_tz).strftime('%I:%M %p')
 
         hourly_forecast = []
 
@@ -158,6 +159,7 @@ class WeatherView(View):
             "weather_description_h": weather_description_h,
             "weather_description_d": weather_description_d,
             "humidity": f"{humidity}%",
+            "feels_like": f"{feels_like}°{metric_input}",
             "wind_speed": f"{wind_speed} m/s",
             "sunrise": sunrise_local,
             "sunset": sunset_local
@@ -168,3 +170,15 @@ class WeatherView(View):
         print("DEBUGLAST: Stored Weather Data in Session:", request.session['weather_data'])
 
         return JsonResponse(weather_data)
+
+def results(request):
+    # Access data stored in session
+    data = request.session.get('weather_data', {})
+    city_name = request.session.get('city_name', data.get('location', 'Unknown City'))  # default to the full address or 'Unknown City' if city is not found
+    print("DEBUGDATA: Weather Data from Session:", data)
+    return render(request, 'results.html', {
+        'forecast_days': data.get('forecast_days', []),
+        'hourly_forecast': data.get('hourly_forecast', []),
+        'weather_data': data,
+        'city': city_name
+})

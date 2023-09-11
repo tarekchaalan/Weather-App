@@ -12,12 +12,6 @@ li {
 
 /* Add background color and font settings */
 body {
-  background-color: #2c74a4;
-  background-image: url("data/images/sunny.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed; /* The background image will not scroll with the page */
-  background-position: calc(100% + 30px) calc(0% - 0px);
   font-family: Arial, Helvetica, sans-serif;
   color: #bdbdbd;
   line-height: 1.6;
@@ -36,6 +30,99 @@ header h1 {
   margin: 0;
   padding: 0.5rem;
   font-size: 2rem;
+}
+
+#background {
+  z-index: -1;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: background 0.7s;
+  background: linear-gradient(120deg, #fff097, #5eb0d1 55%);
+}
+
+#temp span {
+  animation-duration: 1.5s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+  opacity: 0;
+}
+
+#background > .cloud1,
+.cloud2,
+.cloud3,
+.cloud4,
+.cloud5,
+.cloud6,
+.cloud7,
+.cloud8,
+.cloud9,
+.cloud10,
+.cloud11 {
+  z-index: 999;
+  width: 1000px;
+  height: 920px;
+  position: absolute;
+  background-color: #fff;
+  opacity: 0.45;
+  transition: opacity 0.5s;
+  border-radius: 50%;
+  animation: cloud 10s infinite alternate;
+}
+
+#background > .cloud1 {
+  top: -671px;
+  left: -406px;
+}
+#background > .cloud2 {
+  top: -732px;
+  left: -233px;
+}
+#background > .cloud3 {
+  top: -771px;
+  left: -53px;
+}
+#background > .cloud4 {
+  top: -715px;
+  left: 14px;
+}
+#background > .cloud5 {
+  top: -661px;
+  left: 300px;
+}
+#background > .cloud6 {
+  top: -747px;
+  left: 427px;
+}
+#background > .cloud7 {
+  top: -750px;
+  left: 650px;
+}
+#background > .cloud8 {
+  top: -700px;
+  left: 800px;
+}
+#background > .cloud9 {
+  top: -650px;
+  left: 950px;
+}
+#background > .cloud10 {
+  top: -680px;
+  left: 1100px;
+}
+#background > .cloud11 {
+  top: -730px;
+  left: 1250px;
+}
+
+@keyframes cloud {
+  100% {
+    transform: translate(-50px) scale(1.05);
+  }
 }
 
 .rounded-container1,
@@ -105,6 +192,131 @@ header h1 {
   .rounded-container3 {
     margin-top: 20px;
   }
+}
+
+h1#location {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-56%);
+  color: rgb(65, 64, 64);
+  opacity: 0.9;
+}
+
+h1#current-date {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-59%);
+  color: rgb(65, 64, 64);
+  opacity: 0.9;
+}
+
+p#current-temp {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p#highest-temp {
+  position: absolute;
+  right: 30px;
+  bottom: 40px;
+  font-size: 1.4em;
+}
+
+p#lowest-temp {
+  position: absolute;
+  right: 30px;
+  bottom: 10px;
+  font-size: 1.4em;
+}
+
+p#weather_description {
+  font-size: 1.4em;
+  text-transform: capitalize;
+  position: absolute;
+  left: 20px;
+  bottom: 15px;
+}
+
+.rounded-container2 p,
+.rounded-container3 p {
+  font-size: 1.3em;
+}
+
+p#title1 {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p#title2 {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p#humidity {
+  font-size: 1.4em;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-56%, -90%);
+}
+
+p#feels-like {
+  font-size: 1.4em;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-56%, 30%);
+}
+
+p#wind-speed {
+  font-size: 1.4em;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-56%, 150%);
+}
+
+p#sunrise {
+  font-size: 1.4em;
+  position: absolute;
+  top: 55%;
+  left: 60%;
+  transform: translate(-56%, -70%);
+}
+
+p#sunset {
+  font-size: 1.4em;
+  position: absolute;
+  top: 60%;
+  left: 60%;
+  transform: translate(-56%, 50%);
+}
+
+#rise {
+  position: absolute;
+  top: 51.5%;
+  left: 44%;
+  transform: translate(-56%, -70%);
+  width: 37px;
+  height: 35px;
+}
+
+#set {
+  position: absolute;
+  top: 57.5%;
+  left: 44%;
+  transform: translate(-56%, 50%);
+  width: 37px;
+  height: 35px;
 }
 
 table {

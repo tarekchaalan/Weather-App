@@ -326,7 +326,7 @@ table {
   left: 10%;
   width: 80%; /* Table takes up full width of its parent */
   border-collapse: collapse; /* Remove space between table cells */
-  background: linear-gradient(120deg, #5eb0d1, #fff097 95%);
+  background: linear-gradient(45deg, black, white 100%);
   transition: background 0.7s;
   background-size: cover;
   box-shadow: 20px -10px 20px rgba(50, 50, 50, 1);

@@ -35,7 +35,8 @@
       <h1 id="current-date">{{ weather_data.current_date }}</h1>
     </div>
     <div class="container1">
-      <div class="rounded-container1">
+      <div
+        class="rounded-container1">
         <div class="Temperatures" id="Temperatures">
           <p id="current-temp">{{ weather_data.current_temp }}</p>
           <p id="highest-temp">H: {{ weather_data.highest_temp }}</p>
@@ -44,7 +45,7 @@
         </div>
       </div>
     </div>
-    <div class="container2">
+    <div class="container2" style="background-image: url('{{ weather_data.weather_image }}');">
       <div class="rounded-container2">
         <div class="Info" id="Info">
           <p id="title1">Info</p>
@@ -54,7 +55,7 @@
         </div>
       </div>
     </div>
-    <div class="container3">
+    <div class="container3" style="background-image: url('{{ weather_data.weather_image }}');">
       <div class="rounded-container3">
         <div class="SunCycle" id="SunCycle">
           <p id="title2">Sun Cycle</p>

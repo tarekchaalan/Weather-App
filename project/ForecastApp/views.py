@@ -18,19 +18,15 @@ GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
 
 class WeatherView(View):
     def post(self, request):
-        print("DEBUG1: Getting data from POST request")
         data = json.loads(request.body.decode('utf-8'))
         address_input = data.get("address", "")
-        metric_input = data.get("metric", "C")
+        metric_input = data.get("metric", "")
 
         try:
-            print("DEBUG2: Getting latitude and longitude from Google Maps API")
             response = requests.get(f"https://maps.googleapis.com/maps/api/geocode/json?address={address_input}&key={GOOGLE_MAPS_API_KEY}")
             if response.status_code != 200:
                 return JsonResponse({"error": "Couldn't get address"}, status=400)
-            print("DEBUG3: Got response from Google Maps API")
             location_data = response.json()
-            print("DEBUG4:", location_data)
             latitude = location_data['results'][0]['geometry']['location']['lat']
             longitude = location_data['results'][0]['geometry']['location']['lng']
             city_name = None
@@ -41,22 +37,18 @@ class WeatherView(View):
             if city_name is None:
                 city_name = address_input
             request.session['city_name'] = city_name
-            print(f"DEBUG5: Converted address {address_input} to latitude: {latitude}, longitude: {longitude}")
         except Exception as e:
-            print(f"DEBUG6: Exception occurred - {e}")
             return JsonResponse({"error": str(e)}, status=400)
         try:
-            print("DEBUG7: Getting weather data from OpenWeatherMaps API")
             response = requests.get(f"http://api.openweathermap.org/data/2.5/onecall?lat={latitude}&lon={longitude}&appid={OPENWEATHER_API_KEY}")
             parsed_json = response.json()
-            print("DEBUG8:", parsed_json)
         except:
             return JsonResponse({"error": "Invalid API key"}, status=400)
 
-        def convert_temp(kelvin, metric, *args, **kwargs):
-            if metric == 'C':
+        def convert_temp(kelvin, metric_input=metric_input):
+            if metric_input == 'C':
                 return int(round(kelvin - 273.15, 0))
-            elif metric == 'F':
+            elif metric_input == 'F':
                 return int(round((kelvin - 273.15) * 9/5 + 32, 0))
 
         daily_data = parsed_json['daily'][1:8]
@@ -69,7 +61,8 @@ class WeatherView(View):
         weather_description = parsed_json['current']['weather'][0]['description']
         feels_like = convert_temp(parsed_json['current']['feels_like'], metric_input)
         humidity = parsed_json['current']['humidity']
-        wind_speed = parsed_json['current']['wind_speed']
+        #wind_speed = parsed_json['current']['wind_speed']
+        wind_speed = round(parsed_json['current']['wind_speed'] * 2.2369, 2)
         sunrise_ts = parsed_json['current']['sunrise']
         sunset_ts = parsed_json['current']['sunset']
 
@@ -129,21 +122,17 @@ class WeatherView(View):
         current_local_time = current_local_time % 24  # Ensure it's within 0-23
 
         # Determine the image based on the weather description
-        if (6 <= current_local_time < 18): # Daytime
+        if (sunrise_ts <= current_local_time < sunset_ts): # Daytime
             # Daytime
             if weather_description == 'Clear':
-                weather_image = 'sunny.jpg'
+                weather_image = 'static/data/images/sunny.jpg'
             elif weather_description == 'Clouds':
-                weather_image = 'cloudy.jpg'
+                weather_image = 'static/data/images/cloudy.jpg'
             else:
-                weather_image = 'clear.jpg'
+                weather_image = 'static/data/images/clear.jpg'
 
         else: # Nighttime
-            if weather_description == 'Clear':
-                weather_image = 'night.jpg'
-            else:
-                weather_image = 'clear.jpg'
-
+            weather_image = '{% static "project/ForecastApp/data/images/night.jpg" %'
 
         weather_data = {
             "current_temp": f"{current_temp}°{metric_input}",
@@ -160,14 +149,13 @@ class WeatherView(View):
             "weather_description_d": weather_description_d,
             "humidity": f"{humidity}%",
             "feels_like": f"{feels_like}°{metric_input}",
-            "wind_speed": f"{wind_speed} m/s",
+            "wind_speed": f"{wind_speed} mph",
             "sunrise": sunrise_local,
             "sunset": sunset_local
         }
 
         # Store the data in session
         request.session['weather_data'] = weather_data
-        print("DEBUGLAST: Stored Weather Data in Session:", request.session['weather_data'])
 
         return JsonResponse(weather_data)
 
@@ -175,7 +163,6 @@ def results(request):
     # Access data stored in session
     data = request.session.get('weather_data', {})
     city_name = request.session.get('city_name', data.get('location', 'Unknown City'))  # default to the full address or 'Unknown City' if city is not found
-    print("DEBUGDATA: Weather Data from Session:", data)
     return render(request, 'results.html', {
         'forecast_days': data.get('forecast_days', []),
         'hourly_forecast': data.get('hourly_forecast', []),

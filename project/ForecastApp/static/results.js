@@ -1,7 +1,5 @@
 function formatDate(dateString) {
-  console.log("Input date:", dateString); // Add this line for debugging
   const date = new Date(dateString);
-  console.log("Parsed date:", date); // Add this line for debugging
   const day = date.getDate();
   let suffix = ["th", "st", "nd", "rd"][
     day % 100 > 3 && day % 100 < 21 ? 0 : day % 10 < 4 ? day % 10 : 0

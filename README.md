@@ -62,5 +62,5 @@ python manage.py runserver
 Enter a location address in the search bar and click the "Search" button.<br>
 Weather information for the specified location will be displayed on the next page.
 
-## Usage
+## License
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT/).   

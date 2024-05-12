@@ -31,12 +31,14 @@ git clone https://github.com/tarekchaalan/Weather-App.git
 
 - *Mac / Linux:*
 ```
+cd Weather-App
 python3 -m venv env
 source env/bin/activate
 pip install -r requirements.txt
 ```
 - *Windows:*
 ```
+cd Weather-App
 python -m venv env
 env\Scripts\activate
 pip install -r requirements.txt
@@ -50,11 +52,13 @@ GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 
 4. Run the migrations and create the database:
 ```
+cd project
 python manage.py migrate
 ```
 
 5. Start the development server:
 ```
+cd project
 python manage.py runserver
 ```
 

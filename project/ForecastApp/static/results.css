@@ -129,12 +129,12 @@ header h1 {
 .rounded-container2,
 .rounded-container3 {
   border: solid 1px #555;
-  background: linear-gradient(120deg, #5eb0d1, #fff097 95%);
+  background: transparent;
   transition: background 0.7s;
   background-size: cover;
   box-shadow: 7px -10px 10px rgba(50, 50, 50, 0.8);
   border-radius: 15px;
-  color: white;
+  color: #000;
   margin-top: 150px;
   margin-left: 5%;
   float: left;
@@ -166,7 +166,7 @@ header h1 {
 .rounded-container2 p,
 .rounded-container3 p {
   margin: 0;
-  color: white;
+  color: #000;
 }
 
 /* Ensure the container does not extend beyond the window's width */
@@ -325,8 +325,9 @@ table {
   position: relative; /* Position the table relative to its parent */
   left: 10%;
   width: 80%; /* Table takes up full width of its parent */
+  height: 100%;
   border-collapse: collapse; /* Remove space between table cells */
-  background: linear-gradient(45deg, black, white 100%);
+  background: transparent;
   transition: background 0.7s;
   background-size: cover;
   box-shadow: 20px -10px 20px rgba(50, 50, 50, 1);
@@ -336,7 +337,7 @@ table {
 
 table td {
   width: 50%; /* Each cell takes up half the table */
-  color: white; /* White text in the cells */
+  color: #000; /* White text in the cells */
   padding: 10px; /* Padding inside the cells for content */
   justify-content: center;
 }
@@ -420,7 +421,8 @@ td {
   padding: 5px;
   border: none;
   font-weight: bold;
-  background-color: #666;
+  font-size: 20px;
+  background-color: transparent;
   margin: 0 5px; /* Some space between each header item for better appearance */
 }
 
@@ -434,4 +436,16 @@ td {
   flex: 1;
   padding: 5px;
   margin: 0 5px; /* Some space between each item for better appearance */
+}
+
+#forecastdays {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* This spreads the items evenly */
+  height: 95%; /* Use the full height */
+}
+
+table tr,
+table td {
+  height: 100%; /* Ensure the row and cell take full height */
 }

@@ -2,12 +2,16 @@ function fillCurrentLocation() {
   navigator.geolocation.getCurrentPosition((position) => {
     const { latitude, longitude } = position.coords;
     fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
+      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
     )
       .then((response) => response.json())
       .then((data) => {
         const addressData = data.address;
-        const formattedAddress = `${addressData.road}, ${addressData.city}, ${addressData.county}, ${addressData.state}, ${addressData.postcode}`;
+        const formattedAddress = `${addressData.road || ""}, ${
+          addressData.city || ""
+        }, ${addressData.county || ""}, ${addressData.state || ""}, ${
+          addressData.postcode || ""
+        }`;
         document.getElementById("address-input").value = formattedAddress;
       });
   });
@@ -17,23 +21,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // Hover effects
   $("#address-input").hover(
     function () {
-      $("#search-container").css(
+      $("#search-form").css(
         "box-shadow",
-        "0 0 30px 5px rgba(255, 255, 255, 0.6)",
+        "0 0 30px 5px rgba(255, 255, 255, 0.6)"
       );
     },
     function () {
-      $("#search-container").css("box-shadow", "none");
-    },
+      $("#search-form").css("box-shadow", "none");
+    }
   );
 
-  $("#search-container").hover(
+  $("#search-form").hover(
     function () {
       $(this).css("box-shadow", "0 0 30px 5px rgba(255, 255, 255, 0.6)");
     },
     function () {
       $(this).css("box-shadow", "none");
-    },
+    }
   );
 
   // Locate button click event
@@ -50,40 +54,31 @@ document.addEventListener("DOMContentLoaded", () => {
     metricHidden.value = metricButton.innerHTML === "°C" ? "C" : "F";
   });
 
+  // Handle form submission
   document
-    .getElementById("submit-button")
-    .addEventListener("click", function (e) {
-      e.preventDefault(); // Prevent form submission
-      const addressInput = document.getElementById("address-input").value;
+    .getElementById("search-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault(); // Prevent default form submission
+      const addressInput = document
+        .getElementById("address-input")
+        .value.trim();
       const noAddressDiv = document.getElementById("noaddress");
+      const invalidAddressDiv = document.getElementById("invalidaddress");
 
       if (!addressInput) {
-        noAddressDiv.style.opacity = "0.8"; // Show the div
-        document.getElementById("invalidaddress").style.opacity = "0";
+        noAddressDiv.style.opacity = "0.8"; // Show the "Please enter an address" message
+        invalidAddressDiv.style.opacity = "0"; // Hide the "Invalid address" message
       } else {
-        noAddressDiv.style.opacity = "0"; // Hide the div
-        fetchWeather(); // Call fetchWeather function here if the address is not empty.
-      }
-    });
-
-  document
-    .getElementById("address-input")
-    .addEventListener("keydown", function (e) {
-      if (e.key === "Enter") {
-        // Check for the Enter key
-        e.preventDefault(); // Prevent the default behavior (e.g., form submission)
-
-        // Call the function that handles the button click event
-        const submitButton = document.getElementById("submit-button");
-        submitButton.click();
+        noAddressDiv.style.opacity = "0"; // Hide the message
+        fetchWeather(); // Call the function to fetch weather data
       }
     });
 
   // Fetch data
   function fetchWeather() {
     const csrfToken = getCookie("csrftoken");
-    const address = document.getElementById("address-input").value;
-    fetch("http://127.0.0.1:8000/get_weather/", {
+    const address = document.getElementById("address-input").value.trim();
+    fetch("/get_weather/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -100,17 +95,20 @@ document.addEventListener("DOMContentLoaded", () => {
         return response.json(); // Otherwise, process the normal response
       })
       .then((data) => {
-        // Success: Handle your successful data response here if necessary
+        // Success: Redirect to the results page
         window.location.href = "/results/";
       })
       .catch((error) => {
-        // Handle the specific error message
-        if (error.error && error.error === "list index out of range") {
-          document.getElementById("invalidaddress").style.opacity = "0.8";
-          noAddressDiv.style.opacity = "0";
+        const invalidAddressDiv = document.getElementById("invalidaddress");
+        if (error.error) {
+          if (error.error === "list index out of range") {
+            invalidAddressDiv.style.opacity = "0.8"; // Show the "Invalid address" message
+            document.getElementById("noaddress").style.opacity = "0"; // Hide other messages
+          } else {
+            invalidAddressDiv.style.opacity = "0.8"; // Show the "Invalid address" message
+          }
         } else {
-          // Instead of alerting the error, we're now showing the div for other errors as well
-          document.getElementById("invalidaddress").style.opacity = "0.8";
+          console.error("An unexpected error occurred:", error);
         }
       });
   }

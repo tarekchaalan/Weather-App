@@ -122,11 +122,11 @@ class WeatherView(View):
         weather_backgrounds = {
             'clear': {
                 'day': {'file': 'clear_day.jpg', 'type': 'image'},
-                'night': {'file': 'clear_night.jpg', 'type': 'image'},
+                'night': {'file': 'clear_night.png', 'type': 'image'},
             },
-            'clouds': {'file': 'broken_clouds.jpg', 'type': 'image'},
+            'clouds': {'file': 'scattered-clouds.jpg', 'type': 'image'},
             'rain': {
-                'day': {'file': 'rain_night.mp4', 'type': 'video'},
+                'day': {'file': 'rain_day.mp4', 'type': 'video'},
                 'night': {'file': 'rain_night.mp4', 'type': 'video'},
             },
             'drizzle': {'file': 'shower-rain.mp4', 'type': 'video'},

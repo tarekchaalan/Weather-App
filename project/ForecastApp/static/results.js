@@ -12,83 +12,79 @@ function formatDate(dateString) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const metricHidden = document.getElementById("metric-hidden").value;
-  const csrfToken = getCookie("csrftoken");
-  const address = document.getElementById("address-input").value;
+  // Retrieve the weather data embedded in the page
+  const weatherData = JSON.parse(
+    document.getElementById("weather-data").textContent
+  );
 
-  fetch("http://127.0.0.1:8000/get_weather/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRFToken": csrfToken,
-    },
-    body: JSON.stringify({ address: address, metric: metricHidden }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (document.getElementById("current-temp")) {
-        document.getElementById("current-temp").innerText = data.current_temp;
-      }
+  if (document.getElementById("current-temp")) {
+    document.getElementById("current-temp").innerText =
+      weatherData.current_temp;
+  }
 
-      if (document.getElementById("highest-temp")) {
-        document.getElementById("highest-temp").innerText =
-          "H: " + data.highest_temp;
-      }
+  if (document.getElementById("highest-temp")) {
+    document.getElementById("highest-temp").innerText =
+      "High: " + weatherData.highest_temp;
+  }
 
-      if (document.getElementById("lowest-temp")) {
-        document.getElementById("lowest-temp").innerText =
-          "L: " + data.lowest_temp;
-      }
+  if (document.getElementById("lowest-temp")) {
+    document.getElementById("lowest-temp").innerText =
+      "Low: " + weatherData.lowest_temp;
+  }
 
-      const humidityElement = document.getElementById("humidity");
-      const windSpeedElement = document.getElementById("wind-speed");
-      const sunriseElement = document.getElementById("sunrise");
-      const sunsetElement = document.getElementById("sunset");
+  const humidityElement = document.getElementById("humidity");
+  const windSpeedElement = document.getElementById("wind-speed");
+  const sunriseElement = document.getElementById("sunrise");
+  const sunsetElement = document.getElementById("sunset");
 
-      humidityElement.innerHTML = `${data.humidity}%`;
-      windSpeedElement.innerHTML = `${data.wind_speed} m/s`;
-      sunriseElement.innerHTML = data.sunrise;
-      sunsetElement.innerHTML = data.sunset;
+  humidityElement.innerHTML = `${weatherData.humidity}`;
+  windSpeedElement.innerHTML = `${weatherData.wind_speed}`;
+  sunriseElement.innerHTML = weatherData.sunrise;
+  sunsetElement.innerHTML = weatherData.sunset;
 
-      const hourlyForecastDiv = document.getElementById("hourly-forecast");
-      let forecastHTMLHourly = "";
-      if (data.hourly_forecast) {
-        data.hourly_forecast.forEach((hour) => {
-          forecastHTMLHourly += `<p>${hour.time}: ${hour.temperature}</p>`;
-        });
-      }
-
-      if (forecastHTMLHourly) {
-        hourlyForecastDiv.innerHTML = forecastHTMLHourly;
-      }
-
-      const weeklyForecastDiv = document.getElementById("forecastdays");
-      let forecastHTMLWeekly = "";
-      if (data.forecast_days) {
-        data.forecast_days.forEach((day) => {
-          forecastHTMLWeekly += `
-                  <tr>
-                  <td>${formatDate(day.date)}</td>
-                  <td>H: ${day.max_temp} L: ${day.min_temp}</td>
-                  <td>${day.weather_description}</td>
-                  </tr>`;
-        });
-      }
-
-      if (forecastHTMLWeekly) {
-        weeklyForecastDiv.innerHTML = forecastHTMLWeekly;
-      }
-
-      const locationElement = document.getElementById("location");
-      const currentDateElement = document.getElementById("current-date");
-
-      if (data.location && data.current_date) {
-        locationElement.textContent = data.location;
-        currentDateElement.textContent = formatDate(data.current_date);
-      }
-    })
-    .catch((error) => {
-      console.log("Error:", error);
-      alert("An error occurred. Check the console for more details.");
+  // Update hourly forecast
+  const hourlyForecastDiv = document.querySelector(".hourly-forecast");
+  let forecastHTMLHourly = "";
+  if (weatherData.hourly_forecast) {
+    weatherData.hourly_forecast.forEach((hour) => {
+      forecastHTMLHourly += `
+        <div class="hour">
+          <p class="hour-time">${hour.time}</p>
+          <p class="hour-temp">${hour.temperature}</p>
+          <p class="hour-desc">${hour.weather_description_h}</p>
+        </div>`;
     });
+  }
+
+  if (forecastHTMLHourly) {
+    hourlyForecastDiv.innerHTML = forecastHTMLHourly;
+  }
+
+  // Update daily forecast
+  const dailyForecastDiv = document.querySelector(".daily-forecast");
+  let forecastHTMLWeekly = "";
+  if (weatherData.forecast_days) {
+    weatherData.forecast_days.forEach((day) => {
+      forecastHTMLWeekly += `
+        <div class="day">
+          <p class="day-date">${formatDate(day.date)}</p>
+          <p class="day-high">High: ${day.max_temp}</p>
+          <p class="day-low">Low: ${day.min_temp}</p>
+          <p class="day-desc">${day.weather_description_d}</p>
+        </div>`;
+    });
+  }
+
+  if (forecastHTMLWeekly) {
+    dailyForecastDiv.innerHTML = forecastHTMLWeekly;
+  }
+
+  // Update header information
+  const locationElement = document.querySelector("header h1");
+  const currentDateElement = document.querySelector("header p");
+
+  if (weatherData.location && weatherData.current_date) {
+    locationElement.textContent = `Weather in ${weatherData.location}`;
+    currentDateElement.textContent = formatDate(weatherData.current_date);
+  }
 });

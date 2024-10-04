@@ -7,5 +7,8 @@
       "config": { "maxLambdaSize": "50mb", "runtime": "python3.11" }
     }
   ],
-  "routes": [{ "src": "/(.*)", "dest": "/server.py" }]
+  "routes": [
+    { "src": "/static/(.*)", "dest": "/staticfiles/$1" },
+    { "src": "/(.*)", "dest": "/server.py" }
+  ]
 }

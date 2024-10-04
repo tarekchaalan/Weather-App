@@ -1,143 +1,107 @@
 {% load static %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <link
-      rel="icon"
-      href="{% static 'data\icons\tabicon.ico' %}"
-      type="image/x-icon"
-    />
-    <title>Weather</title>
-    <link
-      id="stylesheet-link"
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'results.css' %}"
-    />
-  </head>
-  <body id="results-page">
-    <div class="default" id="background">
-      <div class="cloud1"></div>
-      <div class="cloud2"></div>
-      <div class="cloud3"></div>
-      <div class="cloud4"></div>
-      <div class="cloud5"></div>
-      <div class="cloud6"></div>
-      <div class="cloud7"></div>
-      <div class="cloud8"></div>
-      <div class="cloud9"></div>
-      <div class="cloud10"></div>
-      <div class="cloud11"></div>
-    </div>
-    <form>{% csrf_token %}</form>
-    <div>
-      <h1 id="location">Weather in {{ city }}</h1>
-      <h1 id="current-date">{{ weather_data.current_date }}</h1>
-    </div>
-    <div class="container1">
-      <div
-        class="rounded-container1">
-        <div class="Temperatures" id="Temperatures">
-          <p id="current-temp">{{ weather_data.current_temp }}</p>
-          <p id="highest-temp">H: {{ weather_data.highest_temp }}</p>
-          <p id="lowest-temp">L: {{ weather_data.lowest_temp }}</p>
-          <p id="weather_description">{{ weather_data.weather_description }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="container2" style="background-image: url('{{ weather_data.weather_image }}');">
-      <div class="rounded-container2">
-        <div class="Info" id="Info">
-          <p id="title1">Info</p>
-          <p id="humidity">Humidity: {{ weather_data.humidity }}</p>
-          <p id="feels-like">Feels Like: {{ weather_data.feels_like }}</p>
-          <p id="wind-speed">Wind Speed: {{ weather_data.wind_speed }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="container3" style="background-image: url('{{ weather_data.weather_image }}');">
-      <div class="rounded-container3">
-        <div class="SunCycle" id="SunCycle">
-          <p id="title2">Sun Cycle</p>
-          <p id="sunrise">{{ weather_data.sunrise }}</p>
-          <p id="sunset">{{ weather_data.sunset }}</p>
-          <img
-            id="rise"
-            src="{% static 'data/images/sunrise.png' %}"
-            alt="sunrise"
-          />
-          <img
-            id="set"
-            src="{% static 'data/images/sunset.png' %}"
-            alt="sunset"
-          />
-        </div>
-      </div>
-    </div>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Weather Results</title>
+        <link
+            rel="icon"
+            href="{% static 'data/icons/tabicon.ico' %}"
+            type="image/x-icon"
+        />
+        <link rel="stylesheet" href="{% static 'results.css' %}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        {% if weather_data.background_type == 'video' %}
+        <video autoplay muted loop id="background-video">
+            <source src="{{ weather_data.background_url }}" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+        {% else %}
+        <style>
+            body {
+                background-image: url("{{ weather_data.background_url }}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+        </style>
+        {% endif %}
+        <header>
+            <h1>Weather in {{ city }}</h1>
+            <p>{{ weather_data.current_date }}</p>
+        </header>
+        <main>
+            <section class="current-weather">
+                <div class="overlay">
+                    <div class="temp">
+                        <p class="current-temp">
+                            {{ weather_data.current_temp }}
+                        </p>
+                        <p class="weather-description">
+                            {{ weather_data.weather_description }}
+                        </p>
+                    </div>
+                    <div class="temp-range">
+                        <p>High: {{ weather_data.highest_temp }}</p>
+                        <p>Low: {{ weather_data.lowest_temp }}</p>
+                    </div>
+                </div>
+            </section>
 
-    <table border="0">
-      <tr>
-        <td>
-          <div class="firstheader"></div>
-          24 Hour Forecast
-        </td>
-        <td>
-          <div class="secondheader"></div>
-          7 Day Forecast
-        </td>
-      </tr>
-      ...
-      <tr>
-        <td>
-          <!-- Hourly Forecast Headers -->
-          <div class="hourly-header">
-            <div class="hourly-header-item">Time</div>
-            <div class="hourly-header-item">Temperature</div>
-            <div class="hourly-header-item">Description</div>
-          </div>
+            <section class="additional-info">
+                <!-- Loop over the additional_info list passed from the view -->
+                {% for info in additional_info %}
+                <div class="info-item">
+                    <p>{{ info.title }}</p>
+                    <p>{{ info.value }}</p>
+                </div>
+                {% endfor %}
+            </section>
 
-          <!-- Hourly Forecast Content -->
-          <div id="hourly-forecast">
-            {% for hour in hourly_forecast %}
-            <div class="hourly-item">
-              <div class="hour-time">{{ hour.time }}</div>
-              <div class="hour-temp">{{ hour.temperature }}</div>
-              <div class="hour-description">
-                {{ hour.weather_description_h }}
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        </td>
-
-        <td>
-          <!-- Weekly Forecast Headers -->
-          <div class="weekly-header">
-            <div class="weekly-header-item">Date</div>
-            <div class="weekly-header-item">High</div>
-            <div class="weekly-header-item">Low</div>
-            <div class="weekly-header-item">Description</div>
-          </div>
-
-          <!-- Weekly Forecast Content -->
-          <div id="forecastdays">
-            {% for day in forecast_days %}
-            <div class="forecast-item">
-              <div class="day-date">{{ day.date }}</div>
-              <div class="high">{{ day.max_temp }}</div>
-              <div class="low">{{ day.min_temp }}</div>
-              <div class="desc">{{ day.weather_description_d }}</div>
-            </div>
-            {% endfor %}
-          </div>
-        </td>
-      </tr>
-    </table>
-    <script>
-      var link = document.querySelector("#stylesheet-link");
-      link.href = link.href + "?v=2";
-    </script>
-    <script src="{% static 'common.js' %}"></script>
-    <script src="{% static 'results.js' %}"></script>
-  </body>
+            <section class="forecast">
+                <h2>24 Hour Forecast</h2>
+                <div class="hourly-forecast">
+                    {% for hour in weather_data.hourly_forecast %}
+                    <div class="hour">
+                        <p class="hour-time">{{ hour.time }}</p>
+                        <p class="hour-temp">{{ hour.temperature }}</p>
+                        <p class="hour-desc">
+                            {{ hour.weather_description_h }}
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <h2>7 Day Forecast</h2>
+                <div class="daily-forecast">
+                    {% for day in weather_data.forecast_days %}
+                    <div class="day">
+                        <p class="day-date">{{ day.date }}</p>
+                        <p class="day-high">High: {{ day.max_temp }}</p>
+                        <p class="day-low">Low: {{ day.min_temp }}</p>
+                        <p class="day-desc">{{ day.weather_description_d }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>
+                © 2023 | Tarek Chaalan |
+                <a
+                    href="https://github.com/tarekchaalan/Weather-App"
+                    target="_blank"
+                    >Github</a
+                >
+                | Powered by
+                <a href="https://openweathermap.org/" target="_blank">OWM</a>
+                and
+                <a href="https://www.google.com/maps" target="_blank"
+                    >GoogleMaps</a
+                >
+            </p>
+        </footer>
+    </body>
 </html>

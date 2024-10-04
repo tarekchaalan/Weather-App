@@ -1,451 +1,254 @@
-/* Reset some default browser styles */
-body,
-h1,
-h2,
-h3,
-p,
-ul,
-li {
-  margin: 0;
-  padding: 0;
+/* General Styles */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica,
+        Arial, sans-serif;
+    color: #fff;
+    overflow-x: hidden;
 }
 
-/* Add background color and font settings */
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #bdbdbd;
-  line-height: 1.6;
-  margin: 0px;
+#background-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    background-size: cover;
+    overflow: hidden;
+}
+
+header,
+footer,
+main {
+    position: relative;
+    z-index: 1;
 }
 
 /* Header Styles */
 header {
-  background: #50b3a2;
-  color: rgb(0, 0, 0);
-  text-align: center;
-  padding: 1rem;
+    color: #fff;
+    text-align: center;
+    padding: 40px 20px;
 }
 
 header h1 {
-  margin: 0;
-  padding: 0.5rem;
-  font-size: 2rem;
+    margin-bottom: 10px;
+    font-size: 42px;
+    font-weight: 600;
 }
 
-#background {
-  z-index: -1;
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transition: background 0.7s;
-  background: linear-gradient(120deg, #fff097, #5eb0d1 55%);
+header p {
+    margin-top: 0;
+    font-size: 18px;
 }
 
-#temp span {
-  animation-duration: 1.5s;
-  animation-fill-mode: both;
-  animation-iteration-count: infinite;
-  opacity: 0;
+/* Main Content */
+main {
+    padding: 20px;
 }
 
-#background > .cloud1,
-.cloud2,
-.cloud3,
-.cloud4,
-.cloud5,
-.cloud6,
-.cloud7,
-.cloud8,
-.cloud9,
-.cloud10,
-.cloud11 {
-  z-index: 999;
-  width: 1000px;
-  height: 920px;
-  position: absolute;
-  background-color: #fff;
-  opacity: 0.45;
-  transition: opacity 0.5s;
-  border-radius: 50%;
-  animation: cloud 10s infinite alternate;
+.current-weather {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-#background > .cloud1 {
-  top: -671px;
-  left: -406px;
-}
-#background > .cloud2 {
-  top: -732px;
-  left: -233px;
-}
-#background > .cloud3 {
-  top: -771px;
-  left: -53px;
-}
-#background > .cloud4 {
-  top: -715px;
-  left: 14px;
-}
-#background > .cloud5 {
-  top: -661px;
-  left: 300px;
-}
-#background > .cloud6 {
-  top: -747px;
-  left: 427px;
-}
-#background > .cloud7 {
-  top: -750px;
-  left: 650px;
-}
-#background > .cloud8 {
-  top: -700px;
-  left: 800px;
-}
-#background > .cloud9 {
-  top: -650px;
-  left: 950px;
-}
-#background > .cloud10 {
-  top: -680px;
-  left: 1100px;
-}
-#background > .cloud11 {
-  top: -730px;
-  left: 1250px;
+.current-weather .overlay {
+    background: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding: 40px 20px;
+    border-radius: 20px;
 }
 
-@keyframes cloud {
-  100% {
-    transform: translate(-50px) scale(1.05);
-  }
+.current-weather .temp .current-temp {
+    font-size: 80px;
+    margin: 0;
+    font-weight: 300;
 }
 
-.rounded-container1,
-.rounded-container2,
-.rounded-container3 {
-  border: solid 1px #555;
-  background: transparent;
-  transition: background 0.7s;
-  background-size: cover;
-  box-shadow: 7px -10px 10px rgba(50, 50, 50, 0.8);
-  border-radius: 15px;
-  color: #000;
-  margin-top: 150px;
-  margin-left: 5%;
-  float: left;
-  width: 80%; /* Subtracting margin from each side */
-  height: 250px;
-  box-sizing: border-box;
-  padding: 20px;
-  position: relative;
+.current-weather .temp .weather-description {
+    font-size: 24px;
+    text-transform: capitalize;
+    margin-top: 10px;
 }
 
-.container1,
-.container2,
-.container3 {
-  width: 33.33%;
-  float: left;
-  padding: 0 10px; /* This will ensure the containers don't stick to each other */
-  box-sizing: border-box;
+.current-weather .temp-range {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
 }
 
-/* Clearing floats for the next elements */
-.container3::after {
-  content: "";
-  display: table;
-  clear: both;
+.current-weather .temp-range p {
+    font-size: 20px;
 }
 
-/* Style for Text inside Rounded Containers */
-.rounded-container1 p,
-.rounded-container2 p,
-.rounded-container3 p {
-  margin: 0;
-  color: #000;
+.additional-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
 }
 
-/* Ensure the container does not extend beyond the window's width */
-.container1,
-.container2,
-.container3 {
-  max-width: 100%;
-  overflow: hidden;
+.additional-info .info-item {
+    background-color: rgba(0, 0, 0, 0.5);
+    flex: 1 1 calc(20% - 20px);
+    padding: 30px;
+    text-align: center;
+    border-radius: 20px;
 }
 
-/* Responsive Design to ensure the layout looks good on smaller screens */
-@media screen and (max-width: 768px) {
-  .container1,
-  .container2,
-  .container3 {
-    width: 100%;
-    float: none;
+.additional-info .info-item p:first-child {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.additional-info .info-item p:last-child {
+    font-size: 24px;
+}
+
+.forecast {
+    margin-bottom: 40px;
+}
+
+.forecast h2 {
+    font-size: 28px;
+    font-weight: 600;
     margin-bottom: 20px;
-  }
-
-  .rounded-container1,
-  .rounded-container2,
-  .rounded-container3 {
-    margin-top: 20px;
-  }
 }
 
-h1#location {
-  font-size: 2.5em;
-  margin-bottom: 10px;
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-56%);
-  color: rgb(65, 64, 64);
-  opacity: 0.9;
+.hourly-forecast,
+.daily-forecast {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 10px;
 }
 
-h1#current-date {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  position: absolute;
-  top: 70px;
-  left: 50%;
-  transform: translateX(-59%);
-  color: rgb(65, 64, 64);
-  opacity: 0.9;
+.hourly-forecast .hour,
+.daily-forecast .day {
+    background-color: rgba(0, 0, 0, 0.5);
+    min-width: 150px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 20px;
+    flex-shrink: 0;
 }
 
-p#current-temp {
-  font-size: 3em;
-  font-weight: bold;
-  margin-bottom: 10px;
+.hourly-forecast .hour p,
+.daily-forecast .day p {
+    margin: 10px 0;
 }
 
-p#highest-temp {
-  position: absolute;
-  right: 30px;
-  bottom: 40px;
-  font-size: 1.4em;
+.hourly-forecast .hour .hour-time,
+.daily-forecast .day .day-date {
+    font-weight: 600;
+    font-size: 18px;
 }
 
-p#lowest-temp {
-  position: absolute;
-  right: 30px;
-  bottom: 10px;
-  font-size: 1.4em;
+.hourly-forecast .hour .hour-temp,
+.daily-forecast .day .day-high,
+.daily-forecast .day .day-low {
+    font-size: 20px;
 }
 
-p#weather_description {
-  font-size: 1.4em;
-  text-transform: capitalize;
-  position: absolute;
-  left: 20px;
-  bottom: 15px;
+.hourly-forecast .hour .hour-desc,
+.daily-forecast .day .day-desc {
+    font-size: 16px;
+    text-transform: capitalize;
 }
 
-.rounded-container2 p,
-.rounded-container3 p {
-  font-size: 1.3em;
+/* Styling for both hourly and daily forecast scrollbars */
+.hourly-forecast::-webkit-scrollbar,
+.daily-forecast::-webkit-scrollbar {
+    height: 8px; /* Height of the horizontal scrollbar */
 }
 
-p#title1 {
-  font-size: 3em;
-  font-weight: bold;
-  margin-bottom: 10px;
+.hourly-forecast::-webkit-scrollbar-track,
+.daily-forecast::-webkit-scrollbar-track {
+    background: rgba(
+        255,
+        255,
+        255,
+        0.2
+    ); /* Background color of the scrollbar track */
+    border-radius: 10px;
 }
 
-p#title2 {
-  font-size: 3em;
-  font-weight: bold;
-  margin-bottom: 10px;
+.hourly-forecast::-webkit-scrollbar-thumb,
+.daily-forecast::-webkit-scrollbar-thumb {
+    background-color: rgba(
+        255,
+        255,
+        255,
+        0.5
+    ); /* Color of the scrollbar handle */
+    border-radius: 10px;
 }
 
-p#humidity {
-  font-size: 1.4em;
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-56%, -90%);
+/* Firefox scrollbar styles */
+.hourly-forecast,
+.daily-forecast {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.2); /* Handle color track color */
 }
 
-p#feels-like {
-  font-size: 1.4em;
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-56%, 30%);
+/* Add hover effect on scrollbar handle */
+.hourly-forecast::-webkit-scrollbar-thumb:hover,
+.daily-forecast::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.7); /* Lighter color on hover */
 }
 
-p#wind-speed {
-  font-size: 1.4em;
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-56%, 150%);
+/* Footer Styles */
+footer {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
 }
 
-p#sunrise {
-  font-size: 1.4em;
-  position: absolute;
-  top: 55%;
-  left: 60%;
-  transform: translate(-56%, -70%);
+footer a {
+    color: #fff;
+    text-decoration: none;
 }
 
-p#sunset {
-  font-size: 1.4em;
-  position: absolute;
-  top: 60%;
-  left: 60%;
-  transform: translate(-56%, 50%);
+footer a:hover {
+    text-decoration: underline;
 }
 
-#rise {
-  position: absolute;
-  top: 51.5%;
-  left: 44%;
-  transform: translate(-56%, -70%);
-  width: 37px;
-  height: 35px;
+/* Responsive Styles */
+@media (max-width: 1200px) {
+    .additional-info .info-item {
+        flex: 1 1 calc(33.333% - 20px);
+    }
 }
 
-#set {
-  position: absolute;
-  top: 57.5%;
-  left: 44%;
-  transform: translate(-56%, 50%);
-  width: 37px;
-  height: 35px;
+@media (max-width: 768px) {
+    .current-weather .temp .current-temp {
+        font-size: 60px;
+    }
+    .current-weather .temp-range p {
+        font-size: 18px;
+    }
+    .additional-info .info-item {
+        flex: 1 1 calc(50% - 20px);
+    }
 }
 
-table {
-  border-radius: 25px;
-  overflow: hidden; /* Hide any child element that goes outside the border */
-  position: relative; /* Position the table relative to its parent */
-  left: 10%;
-  width: 80%; /* Table takes up full width of its parent */
-  height: 100%;
-  border-collapse: collapse; /* Remove space between table cells */
-  background: transparent;
-  transition: background 0.7s;
-  background-size: cover;
-  box-shadow: 20px -10px 20px rgba(50, 50, 50, 1);
-  margin-top: 20px; /* Some margin from top for clarity */
-  justify-content: center;
-}
-
-table td {
-  width: 50%; /* Each cell takes up half the table */
-  color: #000; /* White text in the cells */
-  padding: 10px; /* Padding inside the cells for content */
-  justify-content: center;
-}
-
-table tr:first-child td {
-  /* Selects the first row's cells */
-  font-size: 2.5em; /* Bigger font size */
-  font-weight: bolder;
-  vertical-align: top;
-  border-bottom: 3px solid white;
-}
-
-table td:first-child {
-  /* Selects the first column cells */
-  border-right: 1px solid white; /* Border down the middle */
-}
-
-table td:last-child {
-  border-left: none; /* Make sure the last cell doesn't have a border */
-}
-
-td {
-  text-align: center; /* Horizontally center the text */
-  vertical-align: middle; /* Vertically center the text */
-  padding: 10px; /* Provide some space around the content */
-}
-
-/* If you have specific styles in mind for the empty divs, you can modify these */
-.firstheader,
-.secondheader {
-  display: inline-block; /* So that they appear inline with the text */
-  width: 20px; /* Or any desired width */
-  height: 20px; /* Or any desired height */
-  margin-right: 10px; /* Some space between the div and the text */
-}
-
-/* Hourly forecast styles */
-.hourly-item,
-.forecast-item {
-  display: flex; /* Use Flexbox for the layout */
-  justify-content: space-between; /* Distribute the space between the items */
-  margin-bottom: 10px; /* Add some margin to separate the items */
-}
-
-.hourly-header-item,
-.weekly-header-item,
-.hour-time,
-.hour-temp,
-.hour-description {
-  flex: 1; /* Ensure that each item takes up equal space */
-  padding: 5px; /* Add some padding for a better look */
-  border: none; /* A border to differentiate items */
-}
-
-/* Hourly forecast values styles */
-.hourly-item,
-.forecast-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-/* This will display the headers side by side */
-.hourly-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px; /* Add some space between the headers and the forecast content */
-}
-
-.weekly-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-/* Common styles for header items */
-.hourly-header-item,
-.weekly-header-item {
-  flex: 1;
-  text-align: top;
-  padding: 5px;
-  border: none;
-  font-weight: bold;
-  font-size: 20px;
-  background-color: transparent;
-  margin: 0 5px; /* Some space between each header item for better appearance */
-}
-
-.hour-time,
-.hour-temp,
-.hour-description,
-.day-date,
-.high,
-.low,
-.desc {
-  flex: 1;
-  padding: 5px;
-  margin: 0 5px; /* Some space between each item for better appearance */
-}
-
-#forecastdays {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* This spreads the items evenly */
-  height: 95%; /* Use the full height */
-}
-
-table tr,
-table td {
-  height: 100%; /* Ensure the row and cell take full height */
+@media (max-width: 576px) {
+    .current-weather .temp .current-temp {
+        font-size: 48px;
+    }
+    .current-weather .temp-range {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .additional-info .info-item {
+        flex: 1 1 100%;
+    }
 }

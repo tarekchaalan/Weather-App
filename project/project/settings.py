@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
-    'weather-app-three-mu-24.vercel.app',
+    'weather-app-omega-one-45.vercel.app',
     '.vercel.app',
     '.now.sh',
     '127.0.0.1',

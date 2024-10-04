@@ -41,6 +41,9 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',  # Added CSRF protection
+    'django.contrib.auth.middleware.AuthenticationMiddleware',  # Added authentication
+    'django.contrib.messages.middleware.MessageMiddleware',  # Added messaging
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -48,11 +51,6 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'file': {
-            'level': 'ERROR',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'django_error.log',
-        },
         'console': {
             'level': 'ERROR',
             'class': 'logging.StreamHandler',
@@ -60,12 +58,13 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['file', 'console'],
+            'handlers': ['console'],
             'level': 'ERROR',
             'propagate': True,
         },
     },
 }
+
 
 ROOT_URLCONF = 'project.urls'
 

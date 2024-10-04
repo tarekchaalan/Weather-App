@@ -161,7 +161,7 @@ class WeatherView(View):
             background_type = 'image'
 
         # Generate the static URL for the background
-        background_url = static(f'data/images/{background_file}')
+        background_url = static(f'ForecastApp/data/images/{background_file}')
 
         weather_data = {
             "current_temp": f"{current_temp}°{metric_input}",

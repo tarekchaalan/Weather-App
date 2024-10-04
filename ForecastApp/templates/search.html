@@ -1,90 +1,104 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <link
-      rel="icon"
-      href="{% static 'data/icons/tabicon.ico' %}"
-      type="image/x-icon"
-    />
-    <title>Weather Search</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Include jQuery and Font Awesome -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-    <link
-      id="stylesheet-link"
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'search.css' %}"
-    />
-  </head>
-  <body id="search-page">
-    <div id="background">
-      <!-- Background elements (sun and clouds) -->
-      <div id="sun"></div>
-      <div class="cloud1"></div>
-      <div class="cloud2"></div>
-      <div class="cloud3"></div>
-      <div class="cloud4"></div>
-      <div class="cloud5"></div>
-      <div class="cloud6"></div>
-      <div class="cloud7"></div>
-      <div class="cloud8"></div>
-      <div class="cloud9"></div>
-      <div class="cloud10"></div>
-      <div class="cloud11"></div>
-    </div>
-    <div id="main-content">
-      <form id="search-form">
-        {% csrf_token %}
-        <div id="form-elements">
-          <button id="locate" title="Locate Me" type="button">
-            <img
-              src="{% static 'data/images/locateme.png' %}"
-              alt="location"
-              width="20"
-              height="20"
-            />
-          </button>
-          <input id="metric-hidden" type="hidden" name="metric" value="C" />
-          <input
-            id="address-input"
-            type="text"
-            autocomplete="off"
-            placeholder="Search..."
-            name="Address"
-          />
-          <button id="metric-button" type="button" title="Metric">°C</button>
-          <button id="submit-button" type="submit" title="Continue">
-            <img src="{% static 'data/images/submit.png' %}" alt="Submit" />
-          </button>
+    <head>
+        <link
+            rel="icon"
+            href="{% static 'ForecastApp/data/icons/tabicon.ico' %}"
+            type="image/x-icon"
+        />
+        <title>Weather Search</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Include jQuery and Font Awesome -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        />
+        <link
+            id="stylesheet-link"
+            rel="stylesheet"
+            type="text/css"
+            href="{% static 'ForecastApp/search.css' %}"
+        />
+    </head>
+    <body id="search-page">
+        <div id="background">
+            <!-- Background elements (sun and clouds) -->
+            <div id="sun"></div>
+            <div class="cloud1"></div>
+            <div class="cloud2"></div>
+            <div class="cloud3"></div>
+            <div class="cloud4"></div>
+            <div class="cloud5"></div>
+            <div class="cloud6"></div>
+            <div class="cloud7"></div>
+            <div class="cloud8"></div>
+            <div class="cloud9"></div>
+            <div class="cloud10"></div>
+            <div class="cloud11"></div>
         </div>
-      </form>
-      <div id="noaddress">
-        <p>Please enter an address</p>
-      </div>
-      <div id="invalidaddress">
-        <p>Invalid address</p>
-      </div>
-    </div>
+        <div id="main-content">
+            <form id="search-form">
+                {% csrf_token %}
+                <div id="form-elements">
+                    <button id="locate" title="Locate Me" type="button">
+                        <img
+                            src="{% static 'ForecastApp/data/images/locateme.png' %}"
+                            alt="location"
+                            width="20"
+                            height="20"
+                        />
+                    </button>
+                    <input
+                        id="metric-hidden"
+                        type="hidden"
+                        name="metric"
+                        value="C"
+                    />
+                    <input
+                        id="address-input"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Search..."
+                        name="Address"
+                    />
+                    <button id="metric-button" type="button" title="Metric">
+                        °C
+                    </button>
+                    <button id="submit-button" type="submit" title="Continue">
+                        <img
+                            src="{% static 'ForecastApp/data/images/submit.png' %}"
+                            alt="Submit"
+                        />
+                    </button>
+                </div>
+            </form>
+            <div id="noaddress">
+                <p>Please enter an address</p>
+            </div>
+            <div id="invalidaddress">
+                <p>Invalid address</p>
+            </div>
+        </div>
 
-    <div id="credits">
-      <p>
-        © 2024 | Tarek Chaalan |
-        <a href="https://github.com/tarekchaalan/Weather-App" target="_blank"
-          >GitHub</a
-        >
-        | Powered by
-        <a href="https://openweathermap.org/" target="_blank">OWM</a>
-        and
-        <a href="https://www.google.com/maps" target="_blank">Google Maps</a>
-      </p>
-    </div>
-    <script src="{% static 'common.js' %}"></script>
-    <script src="{% static 'search.js' %}"></script>
-  </body>
+        <div id="credits">
+            <p>
+                © 2024 | Tarek Chaalan |
+                <a
+                    href="https://github.com/tarekchaalan/Weather-App"
+                    target="_blank"
+                    >GitHub</a
+                >
+                | Powered by
+                <a href="https://openweathermap.org/" target="_blank">OWM</a>
+                and
+                <a href="https://www.google.com/maps" target="_blank"
+                    >Google Maps</a
+                >
+            </p>
+        </div>
+        <script src="{% static 'ForecastApp/common.js' %}"></script>
+        <script src="{% static 'ForecastApp/search.js' %}"></script>
+    </body>
 </html>

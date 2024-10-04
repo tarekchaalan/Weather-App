@@ -1,99 +1,107 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Weather Results</title>
-    <link
-      rel="icon"
-      href="{% static 'data/icons/tabicon.ico' %}"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="{% static 'results.css' %}" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
-  <body>
-    {% if weather_data.background_type == 'video' %}
-    <video autoplay muted loop id="background-video">
-      <source src="{{ weather_data.background_url }}" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-    {% else %}
-    <style>
-      body {
-        background-image: url("{{ weather_data.background_url }}");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-      }
-    </style>
-    {% endif %}
-    <header>
-      <h1>Weather in {{ city }}</h1>
-      <p>{{ weather_data.current_date }}</p>
-    </header>
-    <main>
-      <section class="current-weather">
-        <div class="overlay">
-          <div class="temp">
-            <p class="current-temp">{{ weather_data.current_temp }}</p>
-            <p class="weather-description">
-              {{ weather_data.weather_description }}
+    <head>
+        <meta charset="UTF-8" />
+        <title>Weather Results</title>
+        <link
+            rel="icon"
+            href="{% static 'ForecastApp/data/icons/tabicon.ico' %}"
+            type="image/x-icon"
+        />
+        <link rel="stylesheet" href="{% static 'ForecastApp/results.css' %}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        {% if weather_data.background_type == 'video' %}
+        <video autoplay muted loop id="background-video">
+            <source src="{{ weather_data.background_url }}" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+        {% else %}
+        <style>
+            body {
+                background-image: url("{{ weather_data.background_url }}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+            }
+        </style>
+        {% endif %}
+        <header>
+            <h1>Weather in {{ city }}</h1>
+            <p>{{ weather_data.current_date }}</p>
+        </header>
+        <main>
+            <section class="current-weather">
+                <div class="overlay">
+                    <div class="temp">
+                        <p class="current-temp">
+                            {{ weather_data.current_temp }}
+                        </p>
+                        <p class="weather-description">
+                            {{ weather_data.weather_description }}
+                        </p>
+                    </div>
+                    <div class="temp-range">
+                        <p>High: {{ weather_data.highest_temp }}</p>
+                        <p>Low: {{ weather_data.lowest_temp }}</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="additional-info">
+                <!-- Loop over the additional_info list passed from the view -->
+                {% for info in additional_info %}
+                <div class="info-item">
+                    <p>{{ info.title }}</p>
+                    <p>{{ info.value }}</p>
+                </div>
+                {% endfor %}
+            </section>
+
+            <section class="forecast">
+                <h2>24 Hour Forecast</h2>
+                <div class="hourly-forecast">
+                    {% for hour in weather_data.hourly_forecast %}
+                    <div class="hour">
+                        <p class="hour-time">{{ hour.time }}</p>
+                        <p class="hour-temp">{{ hour.temperature }}</p>
+                        <p class="hour-desc">
+                            {{ hour.weather_description_h }}
+                        </p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <h2>7 Day Forecast</h2>
+                <div class="daily-forecast">
+                    {% for day in weather_data.forecast_days %}
+                    <div class="day">
+                        <p class="day-date">{{ day.date }}</p>
+                        <p class="day-high">High: {{ day.max_temp }}</p>
+                        <p class="day-low">Low: {{ day.min_temp }}</p>
+                        <p class="day-desc">{{ day.weather_description_d }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>
+                © 2024 | Tarek Chaalan |
+                <a
+                    href="https://github.com/tarekchaalan/Weather-App"
+                    target="_blank"
+                    >Github</a
+                >
+                | Powered by
+                <a href="https://openweathermap.org/" target="_blank">OWM</a>
+                and
+                <a href="https://www.google.com/maps" target="_blank"
+                    >GoogleMaps</a
+                >
             </p>
-          </div>
-          <div class="temp-range">
-            <p>High: {{ weather_data.highest_temp }}</p>
-            <p>Low: {{ weather_data.lowest_temp }}</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="additional-info">
-        <!-- Loop over the additional_info list passed from the view -->
-        {% for info in additional_info %}
-        <div class="info-item">
-          <p>{{ info.title }}</p>
-          <p>{{ info.value }}</p>
-        </div>
-        {% endfor %}
-      </section>
-
-      <section class="forecast">
-        <h2>24 Hour Forecast</h2>
-        <div class="hourly-forecast">
-          {% for hour in weather_data.hourly_forecast %}
-          <div class="hour">
-            <p class="hour-time">{{ hour.time }}</p>
-            <p class="hour-temp">{{ hour.temperature }}</p>
-            <p class="hour-desc">{{ hour.weather_description_h }}</p>
-          </div>
-          {% endfor %}
-        </div>
-        <h2>7 Day Forecast</h2>
-        <div class="daily-forecast">
-          {% for day in weather_data.forecast_days %}
-          <div class="day">
-            <p class="day-date">{{ day.date }}</p>
-            <p class="day-high">High: {{ day.max_temp }}</p>
-            <p class="day-low">Low: {{ day.min_temp }}</p>
-            <p class="day-desc">{{ day.weather_description_d }}</p>
-          </div>
-          {% endfor %}
-        </div>
-      </section>
-    </main>
-    <footer>
-      <p>
-        © 2024 | Tarek Chaalan |
-        <a href="https://github.com/tarekchaalan/Weather-App" target="_blank"
-          >Github</a
-        >
-        | Powered by
-        <a href="https://openweathermap.org/" target="_blank">OWM</a>
-        and
-        <a href="https://www.google.com/maps" target="_blank">GoogleMaps</a>
-      </p>
-    </footer>
-  </body>
+        </footer>
+    </body>
 </html>

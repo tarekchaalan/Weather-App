@@ -19,7 +19,7 @@ if not SECRET_KEY:
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
-    'weather-app-omega-one-45.vercel.app',
+    'weather-app-puce-zeta-81.vercel.app',
     '.vercel.app',
     '.now.sh',
     '127.0.0.1',

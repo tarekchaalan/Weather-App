@@ -13,7 +13,6 @@ db.sqlite3.py
 
 # Static files
 project/static/
-staticfiles/
 
 # Personal
 ignore/

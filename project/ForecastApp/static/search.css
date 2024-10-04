@@ -1,289 +1,301 @@
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  overflow: hidden;
+/* Reset and base styles */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica,
+        Arial, sans-serif;
 }
 
+/* Background styles */
 #background {
-  z-index: -1;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  transition: background 0.7s;
-  background: linear-gradient(120deg, #fff097, #5eb0d1 55%);
+    position: fixed; /* Keep the background fixed relative to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Ensure the background covers the full page */
+    z-index: -1;
+    background: linear-gradient(120deg, #fff097, #5eb0d1 55%);
+    overflow: hidden; /* Hide any overflow from background elements */
 }
 
-#background > #soon {
-  position: absolute;
-  height: 17vh;
-  width: 17vh;
-  border-radius: 50%;
-  top: 15%;
-  left: 10%;
-  transition: background-color 0.7s, box-shadow 0.7s;
+#background > #sun {
+    position: absolute;
+    height: 17vh;
+    width: 17vh;
+    border-radius: 50%;
+    top: 15%;
+    left: 10%;
+    background-color: #feffdf;
+    box-shadow:
+        0 0 5px 35px rgba(254, 255, 223, 0.2),
+        0 0 10px 70px rgba(254, 255, 223, 0.2),
+        0 0 20px 105px rgba(254, 255, 223, 0.2);
+    transition:
+        background-color 0.7s,
+        box-shadow 0.7s;
 }
 
 #temp span {
-  animation-duration: 1.5s;
-  animation-fill-mode: both;
-  animation-iteration-count: infinite;
-  opacity: 0;
+    animation-duration: 1.5s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    opacity: 0;
 }
 
-#background.default > #soon,
-#background.day > #soon {
-  background-color: #feffdf;
-  box-shadow: 0 0 5px 35px rgba(254, 255, 223, 0.2),
-    0 0 10px 70px rgba(254, 255, 223, 0.2),
-    0 0 20px 105px rgba(254, 255, 223, 0.2);
-}
-
+/* Cloud styles */
 #background > .cloud1,
-.cloud2,
-.cloud3 .cloud4,
-.cloud5,
-.cloud6,
-.cloud7,
-.cloud8,
-.cloud9,
-.cloud10,
-.cloud11 {
-  z-index: 999;
-  width: 1000px;
-  height: 920px;
-  position: absolute;
-  background-color: #fff;
-  opacity: 0.45;
-  transition: opacity 0.5s;
-  border-radius: 50%;
-  animation: cloud 10s infinite alternate;
+#background > .cloud2,
+#background > .cloud3,
+#background > .cloud4,
+#background > .cloud5,
+#background > .cloud6,
+#background > .cloud7,
+#background > .cloud8,
+#background > .cloud9,
+#background > .cloud10,
+#background > .cloud11 {
+    z-index: 1;
+    width: 1000px;
+    height: 920px;
+    position: absolute;
+    background-color: #fff;
+    opacity: 0.45;
+    border-radius: 50%;
+    animation: cloud 10s infinite alternate;
 }
 
+/* Cloud positions */
 #background > .cloud1 {
-  top: -671px;
-  left: -406px;
+    top: -671px;
+    left: -406px;
 }
 #background > .cloud2 {
-  top: -732px;
-  left: -233px;
+    top: -732px;
+    left: -233px;
 }
 #background > .cloud3 {
-  top: -771px;
-  left: -53px;
+    top: -771px;
+    left: -53px;
 }
 #background > .cloud4 {
-  top: -715px;
-  left: 14px;
+    top: -715px;
+    left: 14px;
 }
 #background > .cloud5 {
-  top: -661px;
-  left: 300px;
+    top: -661px;
+    left: 300px;
 }
 #background > .cloud6 {
-  top: -747px;
-  left: 427px;
+    top: -747px;
+    left: 427px;
 }
 #background > .cloud7 {
-  top: -750px;
-  left: 650px;
+    top: -750px;
+    left: 650px;
 }
 #background > .cloud8 {
-  top: -700px;
-  left: 800px;
+    top: -700px;
+    left: 800px;
 }
 #background > .cloud9 {
-  top: -650px;
-  left: 950px;
+    top: -650px;
+    left: 950px;
 }
 #background > .cloud10 {
-  top: -680px;
-  left: 1100px;
+    top: -680px;
+    left: 1100px;
 }
 #background > .cloud11 {
-  top: -730px;
-  left: 1250px;
+    top: -730px;
+    left: 1250px;
 }
 
 @keyframes cloud {
-  100% {
-    transform: translate(-50px) scale(1.05);
-  }
+    100% {
+        transform: translate(-50px) scale(1.05);
+    }
 }
 
-#search-container {
-  display: flex;
-  align-items: left;
-  justify-content: space-between;
-  border: 1px solid #ffffff;
-  border-radius: 50px;
-  background-color: rgb(255, 255, 255, 0.25);
-  transition: 0.3s ease-in-out;
-  flex-wrap: fixed;
-  width: 600px;
-  min-height: 40px;
-  max-height: 40px;
-  position: fixed;
-  overflow: hidden;
-  margin: auto;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: 0.3s ease-in-out;
+/* Main content styles */
+#main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Full viewport height */
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative; /* To position elements within this container */
+    z-index: 2; /* Above the background */
 }
 
+/* Search form styles */
 #search-form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex; /* New */
-  align-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid #ffffff;
+    border-radius: 50px;
+    padding: 5px 10px;
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: 0.3s ease-in-out;
+    height: 45px;
+    margin-top: 200px;
 }
 
-#address-input {
-  all: unset;
-  height: 100%;
-  vertical-align: top;
-  margin: 0 0 0 15px;
-  flex: 2;
-  font-size: 25px;
-  width: 465px;
-  min-width: 100px;
-  border: none;
-  outline: none;
-  background: transparent;
-  margin-left: 10px;
-  color: white;
-  opacity: 0.75;
+#form-elements {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 5px;
 }
 
-#address-input:focus {
-  outline: none;
-  border: none;
-  background: transparent;
-}
-
-#address-input::placeholder {
-  font-size: 25px;
-  color: white;
-  opacity: 0.75;
-}
-
-#address-div {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-56%, -50%);
-}
-
-#noaddress, #invalidaddress {
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-56%, -50%);
-  color: white;
-  font-size: 23px;
-}
-
-#locate {
-  position: relative;
-  background: none;
-  border: none;
-  cursor: pointer;
-  left: -275px;
+#locate,
+#metric-button,
+#submit-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+    height: 40px; /* Ensure buttons have consistent height */
 }
 
 #locate img {
-  transition: 0.3s ease-in-out;
-  width: 25px;
-  height: 25px;
-}
-
-#locate img:hover {
-  transform: scale(1.3);
-  cursor: pointer;
-}
-
-#metric-button {
-  position: fixed;
-  background: none;
-  transition: 0.3s ease-in-out;
-  font-size: 23px;
-  margin-top: 3.5px;
-  left: 227px;
-}
-
-#metric-button:hover {
-  transform: scale(1.3);
-  cursor: pointer;
-}
-
-#submit-button {
-  position: fixed;
-  background: none;
-  left: 295px;
-  top: 14px;
-  padding: 0;
-  border: none;
-  cursor: pointer;
+    width: 25px;
+    height: 25px;
+    transition: 0.3s ease-in-out;
 }
 
 #submit-button img {
-  transition: 0.3s ease-in-out;
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
+    transition: 0.3s ease-in-out;
 }
 
+#locate img:hover,
 #submit-button img:hover {
-  transform: scale(1.3);
-  cursor: pointer;
+    transform: scale(1.3);
 }
 
-i.fas.fa-arrow-right {
-  font-size: 24px;
-  color: white;
+#metric-button {
+    font-size: 23px;
+    color: white;
+    transition: 0.3s ease-in-out;
+}
+
+#metric-button:hover {
+    transform: scale(1.3);
+}
+
+#address-input {
+    flex: 1;
+    font-size: 25px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 25px;
+    outline: none;
+    background: transparent;
+    color: white;
+    opacity: 0.75;
+    height: 40px; /* Match the buttons */
+    box-sizing: border-box;
+}
+
+#address-input::placeholder {
+    color: white;
+    opacity: 0.75;
+}
+
+#noaddress,
+#invalidaddress {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    color: white;
+    font-size: 18px;
+    margin-top: 10px;
 }
 
 #credits {
-  position: fixed;
-  bottom: -13px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%; /* You can adjust this */
-  text-align: center; /* Aligns the text to the center */
-  margin: 10px 0; /* Top and bottom margin */
-  color: white;
-  font-size: 12px;
-  opacity: 0.8;
-  white-space: nowrap; /* Prevents the text from wrapping */
+    text-align: center;
+    margin: 10px 0;
+    color: white;
+    font-size: 12px;
+    opacity: 0.8;
+    position: relative;
+    z-index: 2; /* Above the background */
+    margin-top: -40px;
 }
 
 #credits a {
-  text-decoration: none; /* Removes underline */
-  color: inherit; /* Inherits the color from the parent, which is white in your case */
+    text-decoration: none;
+    color: inherit;
 }
 
-/* Button Styles */
-button {
-  background: #50b3a2;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
+/* Hover effects for the search form */
+#search-form:hover {
+    box-shadow: 0 0 30px 5px rgba(255, 255, 255, 0.6);
 }
 
-/* Input Fields */
-input[type="text"] {
-  padding: 12px;
-  display: block;
-  border-radius: 15px;
-  background-color: transparent;
-  width: 50%;
-  font-size: larger;
-  color: white;
+/* Responsive Design */
+@media (max-width: 768px) {
+    #form-elements {
+        gap: 3px; /* Reduce the gap */
+    }
+
+    #metric-button {
+        margin: 5px;
+    }
+
+    #address-input {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    #form-elements {
+        gap: 2px; /* Further reduce the gap */
+    }
+
+    #metric-button {
+        margin: 3px;
+    }
+
+    #address-input {
+        font-size: 18px;
+        padding: 4px;
+    }
+
+    #locate img,
+    #submit-button img {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+@media (max-width: 380px) {
+    #form-elements {
+        gap: 1px; /* Minimal gap on smallest screens */
+    }
+
+    #metric-button {
+        font-size: 18px;
+        margin: 2px;
+    }
+
+    #address-input {
+        font-size: 16px;
+        padding: 3px;
+    }
+
+    #locate img,
+    #submit-button img {
+        width: 18px;
+        height: 18px;
+    }
 }

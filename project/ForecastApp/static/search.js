@@ -2,7 +2,7 @@ function fillCurrentLocation() {
   navigator.geolocation.getCurrentPosition((position) => {
     const { latitude, longitude } = position.coords;
     fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`,
     )
       .then((response) => response.json())
       .then((data) => {
@@ -19,12 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
     function () {
       $("#search-container").css(
         "box-shadow",
-        "0 0 30px 5px rgba(255, 255, 255, 0.6)"
+        "0 0 30px 5px rgba(255, 255, 255, 0.6)",
       );
     },
     function () {
       $("#search-container").css("box-shadow", "none");
-    }
+    },
   );
 
   $("#search-container").hover(
@@ -33,13 +33,21 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     function () {
       $(this).css("box-shadow", "none");
-    }
+    },
   );
 
   // Locate button click event
   document.getElementById("locate").addEventListener("click", (e) => {
     e.preventDefault();
     fillCurrentLocation();
+  });
+
+  const metricButton = document.getElementById("metric-button");
+  const metricHidden = document.getElementById("metric-hidden");
+
+  metricButton.addEventListener("click", () => {
+    metricButton.innerHTML = metricButton.innerHTML === "°C" ? "°F" : "°C";
+    metricHidden.value = metricButton.innerHTML === "°C" ? "C" : "F";
   });
 
   document
@@ -71,14 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-  const metricButton = document.getElementById("metric-button");
-  const metricHidden = document.getElementById("metric-hidden").value; // Defined here
-
-  metricButton.addEventListener("click", () => {
-    metricButton.innerHTML = metricButton.innerHTML === "°C" ? "°F" : "°C";
-    metricHidden.value = metricButton.innerHTML === "°C" ? "C" : "F";
-  });
-
   // Fetch data
   function fetchWeather() {
     const csrfToken = getCookie("csrftoken");
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Content-Type": "application/json",
         "X-CSRFToken": csrfToken,
       },
-      body: JSON.stringify({ address: address, metric: metricHidden }),
+      body: JSON.stringify({ address: address, metric: metricHidden.value }),
     })
       .then((response) => {
         if (!response.ok) {

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Weather Results</title>
+        <link rel="icon" href="icons/tabicon.ico" type="image/x-icon" />
+        <link rel="stylesheet" href="css/results.css" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        <!-- Background Video or Image -->
+        <video autoplay muted loop id="background-video" style="display: none">
+            <source id="bg-video-source" src="" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+        <div id="background-image" style="display: none"></div>
+
+        <header>
+            <h1 id="location">Weather in</h1>
+            <p id="current-date"></p>
+            <p id="local-time"></p>
+            <!-- New Element for Local Time -->
+        </header>
+        <main>
+            <section class="current-weather">
+                <div class="overlay">
+                    <div class="temp">
+                        <p class="current-temp" id="current-temp"></p>
+                        <p
+                            class="weather-description"
+                            id="weather-description"
+                        ></p>
+                    </div>
+                    <div class="temp-range">
+                        <p id="highest-temp">High:</p>
+                        <p id="lowest-temp">Low:</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="additional-info">
+                <div class="info-item">
+                    <p>Feels Like</p>
+                    <p id="feels-like"></p>
+                </div>
+                <div class="info-item">
+                    <p>Humidity</p>
+                    <p id="humidity"></p>
+                </div>
+                <div class="info-item">
+                    <p>Wind Speed</p>
+                    <p id="wind-speed"></p>
+                </div>
+                <div class="info-item">
+                    <p>Sunrise</p>
+                    <p id="sunrise"></p>
+                </div>
+                <div class="info-item">
+                    <p>Sunset</p>
+                    <p id="sunset"></p>
+                </div>
+            </section>
+
+            <section class="forecast">
+                <h2>24 Hour Forecast</h2>
+                <div class="hourly-forecast" id="hourly-forecast">
+                    <!-- Hourly forecast will be injected here -->
+                </div>
+                <h2>7 Day Forecast</h2>
+                <div class="daily-forecast" id="daily-forecast">
+                    <!-- Daily forecast will be injected here -->
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>
+                © 2024 | Tarek Chaalan |
+                <a
+                    href="https://github.com/tarekchaalan/Weather-App"
+                    target="_blank"
+                    >GitHub</a
+                >
+                | Powered by
+                <a href="https://openweathermap.org/" target="_blank">OWM</a>
+                and
+                <a href="https://www.google.com/maps" target="_blank"
+                    >Google Maps</a
+                >
+            </p>
+        </footer>
+
+        <script src="js/common.js"></script>
+        <script src="js/results.js"></script>
+    </body>
+</html>

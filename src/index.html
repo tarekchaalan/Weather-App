@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Weather Search</title>
+        <link rel="icon" href="src/icons/tabicon.ico" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Include jQuery and Font Awesome -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        />
+    </head>
+    <body id="search-page">
+        <div id="background">
+            <!-- Background elements (sun and clouds) -->
+            <div id="sun"></div>
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+            <div class="cloud cloud3"></div>
+            <div class="cloud cloud4"></div>
+            <div class="cloud cloud5"></div>
+            <div class="cloud cloud6"></div>
+            <div class="cloud cloud7"></div>
+            <div class="cloud cloud8"></div>
+            <div class="cloud cloud9"></div>
+            <div class="cloud cloud10"></div>
+            <div class="cloud cloud11"></div>
+        </div>
+        <div id="main-content">
+            <form id="search-form">
+                <div id="form-elements">
+                    <button id="locate" title="Locate Me" type="button">
+                        <img
+                            src="images/locateme.png"
+                            alt="location"
+                            width="20"
+                            height="20"
+                        />
+                    </button>
+                    <input
+                        id="metric-hidden"
+                        type="hidden"
+                        name="metric"
+                        value="C"
+                    />
+                    <input
+                        id="address-input"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Search..."
+                        name="Address"
+                    />
+                    <button id="metric-button" type="button" title="Metric">
+                        °C
+                    </button>
+                    <button id="submit-button" type="submit" title="Continue">
+                        <img src="images/submit.png" alt="Submit" />
+                    </button>
+                </div>
+            </form>
+            <div id="noaddress">
+                <p>Please enter an address</p>
+            </div>
+            <div id="invalidaddress">
+                <p>Invalid address</p>
+            </div>
+        </div>
+
+        <div id="credits">
+            <p>
+                © 2024 | Tarek Chaalan |
+                <a
+                    href="https://github.com/tarekchaalan/Weather-App"
+                    target="_blank"
+                    >GitHub</a
+                >
+                | Powered by
+                <a href="https://openweathermap.org/" target="_blank">OWM</a>
+                and
+                <a href="https://www.google.com/maps" target="_blank"
+                    >Google Maps</a
+                >
+            </p>
+        </div>
+    </body>
+</html>

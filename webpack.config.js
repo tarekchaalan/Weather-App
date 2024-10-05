@@ -1,10 +1,35 @@
-const path = require("path");
-const Dotenv = require("dotenv-webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin"); // Import the plugin
+import Dotenv from "dotenv-webpack";
+import path from "path";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 
-module.exports = {
+const plugins = [
+  new CleanWebpackPlugin(),
+  new HtmlWebpackPlugin({
+    template: "./src/index.html",
+    filename: "index.html",
+    chunks: ["common", "search"],
+  }),
+  new HtmlWebpackPlugin({
+    template: "./src/results.html",
+    filename: "results.html",
+    chunks: ["common", "results"],
+  }),
+  new CopyWebpackPlugin({
+    patterns: [
+      { from: "src/images", to: "images" },
+      { from: "src/icons", to: "icons" },
+      { from: "src/videos", to: "videos" },
+    ],
+  }),
+];
+
+if (process.env.NODE_ENV !== "production") {
+  plugins.push(new Dotenv());
+}
+
+export default {
   entry: {
     search: "./src/js/search.js",
     results: "./src/js/results.js",
@@ -12,14 +37,15 @@ module.exports = {
   },
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(process.cwd(), "dist"),
     publicPath: "",
   },
-  mode: "development",
-  devtool: "inline-source-map",
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
+  devtool:
+    process.env.NODE_ENV === "production" ? "source-map" : "inline-source-map",
   devServer: {
     static: {
-      directory: path.join(__dirname, "dist"),
+      directory: path.join(process.cwd(), "dist"),
     },
     compress: true,
     port: 9000,
@@ -41,25 +67,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new Dotenv(),
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "index.html",
-      chunks: ["common", "search"],
-    }),
-    new HtmlWebpackPlugin({
-      template: "./src/results.html",
-      filename: "results.html",
-      chunks: ["common", "results"],
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: "src/images", to: "images" }, // Copies images
-        { from: "src/icons", to: "icons" }, // Copies icons
-        { from: "src/videos", to: "videos" }, // Copies videos
-      ],
-    }),
-  ],
+  plugins: plugins,
 };

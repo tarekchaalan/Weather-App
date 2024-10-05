@@ -120,13 +120,14 @@ function fetchWeather(address, metric) {
   return new Promise((resolve, reject) => {
     // Geocode the address to get latitude and longitude
     fetch(`/api/geocode?address=${encodeURIComponent(address)}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (
-          data.status !== "OK" ||
-          !data.results ||
-          data.results.length === 0
-        ) {
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status !== "OK" || !data.results || data.results.length === 0) {
           throw new Error("Invalid address");
         }
 
@@ -143,12 +144,18 @@ function fetchWeather(address, metric) {
         }
 
         // Fetch weather data from your backend
-        return fetch(`/api/weather?lat=${latitude}&lon=${longitude}`)
-          .then((response) => response.json())
-          .then((parsedJson) => {
-            if (parsedJson.cod) {
-              throw new Error(parsedJson.message);
-            }
+        return fetch(`/api/weather?lat=${latitude}&lon=${longitude}`);
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(parsedJson => {
+        if (parsedJson.cod) {
+          throw new Error(parsedJson.message);
+        }
 
             // Temperature conversion function
             const convertTemp = (kelvin) => {

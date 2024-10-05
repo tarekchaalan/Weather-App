@@ -7,7 +7,8 @@
   "scripts": {
     "start": "vercel dev",
     "build": "webpack --mode production",
-    "dev": "webpack serve --mode development"
+    "dev": "webpack serve --mode development",
+    "vercel-build": "webpack --mode production"
   },
   "keywords": [],
   "author": "",

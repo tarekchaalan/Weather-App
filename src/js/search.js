@@ -1,7 +1,7 @@
 import "../css/search.css";
 
-const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
-const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+const OPENWEATHER_API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
+const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
 // Check if API keys are present
 if (!OPENWEATHER_API_KEY || !GOOGLE_MAPS_API_KEY) {

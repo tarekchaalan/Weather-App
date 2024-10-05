@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-export default async (req, res) => {
+export default async function handler(req, res) {
   const { latlng, address } = req.query;
 
   const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
@@ -24,4 +24,4 @@ export default async (req, res) => {
     console.error("Error fetching geocode data:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-};
+}

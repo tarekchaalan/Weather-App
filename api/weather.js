@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-export default async (req, res) => {
+export default async function handler(req, res) {
   const { lat, lon } = req.query;
 
   const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
@@ -20,4 +20,4 @@ export default async (req, res) => {
     console.error("Error fetching weather data:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-};
+}

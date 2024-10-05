@@ -155,20 +155,16 @@ html {
     height: 40px;
 }
 
-#locate img {
-    width: 25px;
-    height: 25px;
-    transition: 0.3s ease-in-out;
+#locate svg {
+    transition: transform 0.3s ease-in-out;
 }
 
-#submit-button img {
-    width: 20px;
-    height: 20px;
-    transition: 0.3s ease-in-out;
+#submit-button svg {
+    transition: transform 0.3s ease-in-out;
 }
 
-#locate img:hover,
-#submit-button img:hover {
+#locate:hover svg,
+#submit-button:hover svg {
     transform: scale(1.3);
 }
 

@@ -1,4 +1,3 @@
-Weather - App / src / js / search.js;
 import "../css/search.css";
 
 function fillCurrentLocation() {

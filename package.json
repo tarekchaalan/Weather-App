@@ -5,9 +5,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --mode development",
+    "start": "vercel dev",
     "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack serve --mode development"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +16,6 @@
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.0.0",
-    "dotenv-webpack": "^8.0.0",
     "html-webpack-plugin": "^5.0.0",
     "style-loader": "^3.0.0",
     "vercel": "^37.6.1",
@@ -25,6 +24,6 @@
     "webpack-dev-server": "^4.0.0"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "node-fetch": "^2.7.0"
   }
 }

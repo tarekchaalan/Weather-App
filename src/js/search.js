@@ -1,15 +1,5 @@
 import "../css/search.css";
 
-const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
-const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
-
-if (!OPENWEATHER_API_KEY || !GOOGLE_MAPS_API_KEY) {
-  console.error(
-    "API keys are missing. Please wait until the developer fixes the issue.",
-  );
-  alert("Configuration error. Please try again later.");
-}
-
 function fillCurrentLocation() {
   if (!navigator.geolocation) {
     alert("Geolocation is not supported by your browser.");
@@ -19,9 +9,7 @@ function fillCurrentLocation() {
   navigator.geolocation.getCurrentPosition(
     (position) => {
       const { latitude, longitude } = position.coords;
-      fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_MAPS_API_KEY}`,
-      )
+      fetch(`/api/geocode?latlng=${latitude},${longitude}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.results && data.results[0]) {
@@ -128,13 +116,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Function to fetch weather data and store it in localStorage
-// Function to fetch weather data and store it in localStorage
 function fetchWeather(address, metric) {
   return new Promise((resolve, reject) => {
     // Geocode the address to get latitude and longitude
-    fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${GOOGLE_MAPS_API_KEY}`,
-    )
+    fetch(`/api/geocode?address=${encodeURIComponent(address)}`)
       .then((response) => response.json())
       .then((data) => {
         if (
@@ -157,10 +142,8 @@ function fetchWeather(address, metric) {
           }
         }
 
-        // Fetch weather data from OpenWeather using the correct API key
-        return fetch(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${OPENWEATHER_API_KEY}`,
-        )
+        // Fetch weather data from your backend
+        return fetch(`/api/weather?lat=${latitude}&lon=${longitude}`)
           .then((response) => response.json())
           .then((parsedJson) => {
             if (parsedJson.cod) {

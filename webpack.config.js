@@ -1,5 +1,3 @@
-import webpack from "webpack";
-import Dotenv from "dotenv-webpack";
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
@@ -25,19 +23,6 @@ const plugins = [
     ],
   }),
 ];
-
-plugins.push(new Dotenv());
-
-plugins.push(
-  new webpack.DefinePlugin({
-    "process.env.OPENWEATHER_API_KEY": JSON.stringify(
-      process.env.OPENWEATHER_API_KEY,
-    ),
-    "process.env.GOOGLE_MAPS_API_KEY": JSON.stringify(
-      process.env.GOOGLE_MAPS_API_KEY,
-    ),
-  }),
-);
 
 export default {
   entry: {

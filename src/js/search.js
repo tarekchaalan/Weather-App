@@ -118,6 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Function to fetch weather data and store it in localStorage
 function fetchWeather(address, metric) {
   return new Promise((resolve, reject) => {
+    let cityName = address;
     // Geocode the address to get latitude and longitude
     fetch(`/api/geocode?address=${encodeURIComponent(address)}`)
       .then((response) => {
@@ -139,7 +140,7 @@ function fetchWeather(address, metric) {
         const latitude = locationData.geometry.location.lat;
         const longitude = locationData.geometry.location.lng;
 
-        let cityName = address;
+        cityName = address; // Ensure cityName is defined
         for (let component of locationData.address_components) {
           if (component.types.includes("locality")) {
             cityName = component.long_name;

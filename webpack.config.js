@@ -1,7 +1,8 @@
-import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
-import CopyWebpackPlugin from "copy-webpack-plugin";
+// webpack.config.js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const plugins = [
   new CleanWebpackPlugin(),
@@ -24,7 +25,7 @@ const plugins = [
   }),
 ];
 
-export default {
+module.exports = {
   entry: {
     search: "./src/js/search.js",
     results: "./src/js/results.js",
@@ -32,23 +33,23 @@ export default {
   },
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(process.cwd(), "dist"),
-    publicPath: "",
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
   },
-  mode: process.env.NODE_ENV === "production" ? "production" : "development",
-  devtool:
-    process.env.NODE_ENV === "production" ? "source-map" : "inline-source-map",
-  devServer: {
-    static: {
-      directory: path.join(process.cwd(), "dist"),
-    },
-    compress: true,
-    port: 9000,
-    open: true,
-    hot: true,
-  },
+  mode: "production",
+  devtool: "source-map",
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
+      },
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],

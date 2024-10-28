@@ -3,27 +3,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-const plugins = [
-  new CleanWebpackPlugin(),
-  new HtmlWebpackPlugin({
-    template: "./src/index.html",
-    filename: "index.html",
-    chunks: ["common", "search"],
-  }),
-  new HtmlWebpackPlugin({
-    template: "./src/results.html",
-    filename: "results.html",
-    chunks: ["common", "results"],
-  }),
-  new CopyWebpackPlugin({
-    patterns: [
-      { from: "src/images", to: "images" },
-      { from: "src/icons", to: "icons" },
-      { from: "src/videos", to: "videos" },
-    ],
-  }),
-];
-
 module.exports = {
   entry: {
     search: "./src/js/search.js",
@@ -62,5 +41,24 @@ module.exports = {
       },
     ],
   },
-  plugins: plugins,
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      filename: "index.html",
+      chunks: ["common", "search"],
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/results.html",
+      filename: "results.html",
+      chunks: ["common", "results"],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "src/images", to: "images" },
+        { from: "src/icons", to: "icons" },
+        { from: "src/videos", to: "videos" },
+      ],
+    }),
+  ],
 };

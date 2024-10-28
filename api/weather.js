@@ -1,6 +1,6 @@
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
-export default async function handler(req, res) {
+module.exports = async function (req, res) {
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -42,4 +42,4 @@ export default async function handler(req, res) {
     console.error("Error fetching weather data:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};

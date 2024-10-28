@@ -21,6 +21,12 @@ export default async function handler(req, res) {
 
   const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
+  if (!GOOGLE_MAPS_API_KEY) {
+    return res
+      .status(500)
+      .json({ error: "Server misconfiguration: Missing Google Maps API key." });
+  }
+
   try {
     let apiUrl = "";
 

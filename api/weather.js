@@ -21,6 +21,12 @@ export default async function handler(req, res) {
 
   const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
 
+  if (!OPENWEATHER_API_KEY) {
+    return res
+      .status(500)
+      .json({ error: "Server misconfiguration: Missing OpenWeather API key." });
+  }
+
   if (!lat || !lon) {
     return res.status(400).json({ error: "Missing latitude or longitude." });
   }

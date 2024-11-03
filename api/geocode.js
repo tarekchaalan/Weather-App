@@ -1,6 +1,8 @@
-const fetch = require("node-fetch");
+// Removed the 'node-fetch' import
+// const fetch = require("node-fetch");
 
 module.exports = async function (req, res) {
+  // Set CORS headers
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -31,9 +33,13 @@ module.exports = async function (req, res) {
     let apiUrl = "";
 
     if (latlng) {
-      apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${encodeURIComponent(latlng)}&key=${GOOGLE_MAPS_API_KEY}`;
+      apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${encodeURIComponent(
+        latlng,
+      )}&key=${GOOGLE_MAPS_API_KEY}`;
     } else if (address) {
-      apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${GOOGLE_MAPS_API_KEY}`;
+      apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        address,
+      )}&key=${GOOGLE_MAPS_API_KEY}`;
     } else {
       return res.status(400).json({ error: "Missing required parameters." });
     }

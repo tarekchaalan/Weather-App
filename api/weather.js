@@ -1,6 +1,8 @@
-const fetch = require("node-fetch");
+// Removed the 'node-fetch' import
+// const fetch = require("node-fetch");
 
 module.exports = async function (req, res) {
+  // Set CORS headers
   res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -22,9 +24,9 @@ module.exports = async function (req, res) {
   const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY;
 
   if (!OPENWEATHER_API_KEY) {
-    return res
-      .status(500)
-      .json({ error: "Server misconfiguration: Missing OpenWeather API key." });
+    return res.status(500).json({
+      error: "Server misconfiguration: Missing OpenWeather API key.",
+    });
   }
 
   if (!lat || !lon) {
@@ -32,9 +34,14 @@ module.exports = async function (req, res) {
   }
 
   try {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&appid=${OPENWEATHER_API_KEY}`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${encodeURIComponent(
+      lat,
+    )}&lon=${encodeURIComponent(lon)}&appid=${OPENWEATHER_API_KEY}`;
 
     const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json();
 
     res.status(200).json(data);
